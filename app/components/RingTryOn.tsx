@@ -906,7 +906,7 @@ export default function RingTryOn() {
 
         {/* NAV */}
         <nav style={{ position:'relative', zIndex:50, minHeight:112, padding:'12px 40px', display:'flex', alignItems:'center', justifyContent:'space-between', borderBottom:'1px solid oklch(74% 0.12 78 / 0.1)', flexShrink:0 }}>
-          <div className="serif" style={{ fontSize:33, letterSpacing:'.08em', color:'var(--gold-lt)' }}>
+          <div className="serif" style={{ fontSize:50, letterSpacing:'.08em', color:'var(--gold-lt)' }}>
             Lumière
           </div>
 
@@ -1009,7 +1009,7 @@ export default function RingTryOn() {
                     animation:'fadeUp .8s .1s ease both',
                   }}
                 >
-                  <div style={{ width:30, height:1, background:'var(--gold)' }} />
+                  <div style={{ fontSize:30,width:30, height:1, background:'var(--gold)' }} />
                   Virtual Try-On
                 </div>
 
@@ -1319,9 +1319,9 @@ export default function RingTryOn() {
             <p
               className="camera-hint"
               style={{
-                fontSize: 11,
+                fontSize: 15,
                 letterSpacing: '.3em',
-                color: 'var(--muted)',
+                color: 'var(--gold-lt)',
                 textTransform: 'uppercase',
                 flexShrink: 0,
               }}
