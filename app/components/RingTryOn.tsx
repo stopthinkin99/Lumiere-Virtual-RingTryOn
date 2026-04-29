@@ -88,7 +88,6 @@ const RING_CATALOG = [
   },
 ]
 
-
 const NEXTGENIQ_LOGO = '/nextgeniq-logo.jpeg'
 
 type CartItem = { ring: typeof RING_CATALOG[0]; color: typeof RING_CATALOG[0]['colors'][0]; qty: number }
@@ -288,9 +287,9 @@ export default function RingTryOn() {
         .swatch-btn.active { border-color:var(--gold-lt); transform:scale(1.15); box-shadow:0 0 12px rgba(201,168,50,.5); }
         .cart-badge { position:absolute; top:-6px; right:-6px; width:18px; height:18px; border-radius:50%; background:var(--gold); color:#08070a; font-size:10px; font-weight:700; display:flex; align-items:center; justify-content:center; }
         .mobile-video-showcase { display:none; }
-        .brand-right { display:flex; align-items:flex-end; gap:8px; text-align:right; }
-        .brand-logo { width:68px; height:68px; object-fit:cover; border-radius:50%; background:#f3f3f3; border:1px solid rgba(255,255,255,.1); box-shadow:0 10px 26px rgba(0,0,0,.32); }
-        .brand-caption { font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); white-space:nowrap; }
+        .brand-right { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:7px; text-align:center; min-width:132px; }
+        .brand-logo { width:86px; height:86px; object-fit:cover; border-radius:50%; background:#f3f3f3; border:1px solid rgba(255,255,255,.18); box-shadow:0 12px 34px rgba(0,0,0,.34), 0 0 24px rgba(201,168,50,.08); }
+        .brand-caption { font-size:12px; line-height:1.15; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); white-space:nowrap; }
         @media (max-width:768px) {
           .desktop-only { display:none !important; }
           .intro-grid { grid-template-columns:1fr !important; padding:38px 20px 96px !important; align-items:start !important; gap:28px !important; width:100% !important; }
@@ -299,10 +298,10 @@ export default function RingTryOn() {
           .intro-copy h1 { font-size:clamp(40px, 12vw, 58px) !important; line-height:1.04 !important; }
           .intro-copy p { max-width:100% !important; font-size:15px !important; line-height:1.75 !important; overflow-wrap:anywhere; }
           .cards-stack { display:none !important; }
-          nav { padding:18px 16px !important; align-items:flex-start !important; gap:12px !important; }
-          .brand-right { align-items:flex-end !important; max-width:150px !important; }
-          .brand-logo { width:52px !important; height:52px !important; }
-          .brand-caption { font-size:8px !important; letter-spacing:.1em !important; white-space:normal !important; line-height:1.35 !important; }
+          nav { padding:12px 16px !important; align-items:center !important; gap:12px !important; min-height:96px !important; }
+          .brand-right { min-width:112px !important; max-width:128px !important; gap:5px !important; }
+          .brand-logo { width:68px !important; height:68px !important; }
+          .brand-caption { font-size:9px !important; letter-spacing:.09em !important; white-space:normal !important; line-height:1.25 !important; }
           .mobile-actions { width:100% !important; display:grid !important; grid-template-columns:1fr !important; gap:14px !important; }
           .mobile-actions .btn { width:100% !important; }
           .mobile-video-showcase { display:flex !important; width:100%; overflow-x:auto; overflow-y:hidden; padding:8px 0 28px; gap:0; scroll-snap-type:x mandatory; scroll-behavior:smooth; -webkit-overflow-scrolling:touch; }
@@ -310,21 +309,29 @@ export default function RingTryOn() {
           .mobile-video-card { flex:0 0 100%; width:100%; height:430px; scroll-snap-align:start; scroll-snap-stop:always; }
           .tryon-layout { grid-template-columns:1fr !important; grid-template-rows:auto 1fr; height:auto !important; }
           .tryon-left { height:clamp(300px,75vw,480px) !important; }
-          .tryon-right { border-left:none !important; border-top:1px solid oklch(74% 0.12 78 / 0.1); padding:20px 16px !important; gap:18px !important; height:auto !important; overflow-y:visible !important; }
+          .tryon-right { border-left:none !important; border-top:1px solid oklch(74% 0.12 78 / 0.1); padding:18px 16px !important; gap:16px !important; height:auto !important; overflow-y:visible !important; }
         }
         @media (min-width:769px) { .mobile-only { display:none !important; } }
-        .tryon-layout { display:grid; grid-template-columns:1fr 420px; flex:1; overflow:hidden; height:calc(100vh - 74px); }
-        .tryon-left { position:relative; overflow:hidden; background:#000; display:flex; flex-direction:column; }
-        .tryon-right { overflow-y:auto; background:oklch(8% 0.008 270); border-left:1px solid oklch(74% 0.12 78 / 0.1); display:flex; flex-direction:column; padding:28px 24px; gap:22px; }
+        .tryon-layout { display:grid; grid-template-columns:minmax(0, 1fr) 420px; flex:1; overflow:hidden; height:calc(100svh - 112px); min-height:0; }
+        .tryon-left { position:relative; overflow:hidden; background:#000; display:flex; flex-direction:column; min-height:0; }
+        .tryon-right { overflow:hidden; background:oklch(8% 0.008 270); border-left:1px solid oklch(74% 0.12 78 / 0.1); display:flex; flex-direction:column; padding:18px 22px; gap:14px; min-height:0; }
         .ctrl-label { font-size:9px; color:var(--gold); letter-spacing:.32em; text-transform:uppercase; font-weight:600; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; }
         .ctrl-label span { font-size:12px; color:var(--cream); font-weight:400; letter-spacing:.04em; text-transform:none; }
         .divider { height:1px; background:linear-gradient(90deg,transparent,oklch(74% 0.12 78 / 0.12),transparent); }
+
+        @media (min-width:769px) and (max-height:780px) {
+          .brand-logo { width:72px; height:72px; }
+          .brand-caption { font-size:10px; }
+          .tryon-layout { height:calc(100svh - 100px); }
+          .tryon-right { padding:14px 20px; gap:11px; }
+          .ctrl-label { margin-bottom:6px; }
+        }
       `}</style>
 
       <div style={{ minHeight:'100svh', background:'var(--bg)', display:'flex', flexDirection:'column', overflowX:'hidden' }}>
 
         {/* NAV */}
-        <nav style={{ position:'relative', zIndex:50, padding:'24px 40px', display:'flex', alignItems:'center', justifyContent:'space-between', borderBottom:'1px solid oklch(74% 0.12 78 / 0.1)' }}>
+        <nav style={{ position:'relative', zIndex:50, minHeight:112, padding:'12px 40px', display:'flex', alignItems:'center', justifyContent:'space-between', borderBottom:'1px solid oklch(74% 0.12 78 / 0.1)', flexShrink:0 }}>
           <div className="serif" style={{ fontSize:23, letterSpacing:'.08em', color:'var(--gold-lt)' }}>Lumière</div>
           <div style={{ display:'flex', alignItems:'center', gap:12 }}>
             {phase === 'tryOn' && (
@@ -496,23 +503,23 @@ export default function RingTryOn() {
               {/* RIGHT controls */}
               <div className="tryon-right">
                 <div>
-                  <div style={{ fontSize:11, color:'var(--gold)', letterSpacing:'.25em', textTransform:'uppercase', marginBottom:6 }}>Selected Ring</div>
-                  <h2 className="serif" style={{ fontSize:22, fontWeight:300, lineHeight:1.2, marginBottom:4 }}>{selectedRing.name}</h2>
-                  <div style={{ fontSize:13, color:'var(--muted)', marginBottom:2 }}>{selectedRing.description}</div>
-                  <div style={{ fontSize:20, color:'var(--gold)', fontWeight:500, marginTop:6 }}>${selectedRing.price.toLocaleString()}</div>
+                  <div style={{ fontSize:11, color:'var(--gold)', letterSpacing:'.25em', textTransform:'uppercase', marginBottom:4 }}>Selected Ring</div>
+                  <h2 className="serif" style={{ fontSize:20, fontWeight:300, lineHeight:1.16, marginBottom:3 }}>{selectedRing.name}</h2>
+                  <div style={{ fontSize:12, color:'var(--muted)', marginBottom:1 }}>{selectedRing.description}</div>
+                  <div style={{ fontSize:18, color:'var(--gold)', fontWeight:500, marginTop:4 }}>${selectedRing.price.toLocaleString()}</div>
                 </div>
                 <div className="divider" />
 
                 {/* Ring image grid */}
                 <div>
                   <div className="ctrl-label">Ring Style</div>
-                  <div style={{ display:'grid', gridTemplateColumns:'repeat(4, 1fr)', gap:8 }}>
+                  <div style={{ display:'grid', gridTemplateColumns:'repeat(4, 1fr)', gap:7 }}>
                     {RING_CATALOG.map(r => (
-                      <button key={r.id} onClick={() => selectRing(r.id)} style={{ background:selectedRingId===r.id?'rgba(201,168,50,0.12)':'rgba(255,255,255,0.03)', border:selectedRingId===r.id?'1.5px solid rgba(201,168,50,0.6)':'1.5px solid rgba(255,255,255,0.08)', borderRadius:10, padding:'8px 4px 6px', cursor:'pointer', display:'flex', flexDirection:'column', alignItems:'center', gap:5, transition:'all 0.18s' }}>
-                        <div style={{ width:52, height:34, display:'flex', alignItems:'center', justifyContent:'center', overflow:'hidden' }}>
+                      <button key={r.id} onClick={() => selectRing(r.id)} style={{ background:selectedRingId===r.id?'rgba(201,168,50,0.12)':'rgba(255,255,255,0.03)', border:selectedRingId===r.id?'1.5px solid rgba(201,168,50,0.6)':'1.5px solid rgba(255,255,255,0.08)', borderRadius:10, padding:'6px 4px 5px', cursor:'pointer', display:'flex', flexDirection:'column', alignItems:'center', gap:5, transition:'all 0.18s' }}>
+                        <div style={{ width:48, height:30, display:'flex', alignItems:'center', justifyContent:'center', overflow:'hidden' }}>
                           <img src={r.colors[0].image} alt={r.name} style={{ width:r.rotation===90?'55%':'100%', height:'100%', objectFit:'contain', filter:'drop-shadow(0 2px 6px rgba(0,0,0,.5))', transform:`rotate(${r.rotation??0}deg)` }} />
                         </div>
-                        <div style={{ fontSize:9, color:selectedRingId===r.id?'var(--gold)':'var(--muted)', textAlign:'center', lineHeight:1.3, fontWeight:selectedRingId===r.id?600:400 }}>
+                        <div style={{ fontSize:8.5, color:selectedRingId===r.id?'var(--gold)':'var(--muted)', textAlign:'center', lineHeight:1.3, fontWeight:selectedRingId===r.id?600:400 }}>
                           {r.name.split(' ').slice(0,2).join(' ')}
                         </div>
                       </button>
@@ -548,15 +555,15 @@ export default function RingTryOn() {
 
                 {/* Actions */}
                 <div style={{ display:'flex', flexDirection:'column', gap:10 }}>
-                  <button onClick={addToCart} style={{ width:'100%', padding:'16px', borderRadius:12, border:'none', background:addedToCart?'var(--gold-dk)':'linear-gradient(135deg,var(--gold),var(--gold-lt))', color:'#08070a', fontSize:13, letterSpacing:'.1em', fontWeight:700, cursor:'pointer', fontFamily:'DM Sans', display:'flex', alignItems:'center', justifyContent:'center', gap:10, transition:'all .3s' }}>
+                  <button onClick={addToCart} style={{ width:'100%', padding:'14px', borderRadius:12, border:'none', background:addedToCart?'var(--gold-dk)':'linear-gradient(135deg,var(--gold),var(--gold-lt))', color:'#08070a', fontSize:13, letterSpacing:'.1em', fontWeight:700, cursor:'pointer', fontFamily:'DM Sans', display:'flex', alignItems:'center', justifyContent:'center', gap:10, transition:'all .3s' }}>
                     {addedToCart ? '✓ Added to Cart!' : (<><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Add to Cart · ${selectedRing.price.toLocaleString()}</>)}
                   </button>
-                  <button onClick={savePhoto} style={{ width:'100%', padding:'15px', borderRadius:12, border:'1px solid oklch(74% 0.12 78 / 0.3)', background:photoSaved?'oklch(74% 0.12 78 / 0.1)':'transparent', color:photoSaved?'var(--gold)':'var(--cream)', fontSize:13, letterSpacing:'.1em', fontWeight:500, cursor:'pointer', fontFamily:'DM Sans', display:'flex', alignItems:'center', justifyContent:'center', gap:10, transition:'all .3s' }}>
+                  <button onClick={savePhoto} style={{ width:'100%', padding:'13px', borderRadius:12, border:'1px solid oklch(74% 0.12 78 / 0.3)', background:photoSaved?'oklch(74% 0.12 78 / 0.1)':'transparent', color:photoSaved?'var(--gold)':'var(--cream)', fontSize:13, letterSpacing:'.1em', fontWeight:500, cursor:'pointer', fontFamily:'DM Sans', display:'flex', alignItems:'center', justifyContent:'center', gap:10, transition:'all .3s' }}>
                     {photoSaved ? '✓ Photo Saved!' : (<><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>Save Photo</>)}
                   </button>
-                  <button onClick={() => { stopCamera(); setPhase('intro'); setPhoto(null) }} style={{ width:'100%', padding:'12px', borderRadius:12, border:'none', background:'transparent', color:'var(--muted)', fontSize:12, cursor:'pointer', fontFamily:'DM Sans', letterSpacing:'.06em' }}>← Try a different photo</button>
+                  <button onClick={() => { stopCamera(); setPhase('intro'); setPhoto(null) }} style={{ width:'100%', padding:'8px', borderRadius:12, border:'none', background:'transparent', color:'var(--muted)', fontSize:12, cursor:'pointer', fontFamily:'DM Sans', letterSpacing:'.06em' }}>← Try a different photo</button>
                 </div>
-                <div style={{ height:20 }} />
+                <div style={{ height:8 }} />
               </div>
             </div>
           </div>
