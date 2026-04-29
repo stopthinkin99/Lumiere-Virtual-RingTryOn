@@ -88,6 +88,9 @@ const RING_CATALOG = [
   },
 ]
 
+
+const NEXTGENIQ_LOGO = '/nextgeniq-logo.png'
+
 type CartItem = { ring: typeof RING_CATALOG[0]; color: typeof RING_CATALOG[0]['colors'][0]; qty: number }
 type Phase = 'intro' | 'camera' | 'tryOn' | 'cart' | 'checkout'
 
@@ -285,12 +288,21 @@ export default function RingTryOn() {
         .swatch-btn.active { border-color:var(--gold-lt); transform:scale(1.15); box-shadow:0 0 12px rgba(201,168,50,.5); }
         .cart-badge { position:absolute; top:-6px; right:-6px; width:18px; height:18px; border-radius:50%; background:var(--gold); color:#08070a; font-size:10px; font-weight:700; display:flex; align-items:center; justify-content:center; }
         .mobile-video-showcase { display:none; }
+        .brand-right { display:flex; align-items:flex-end; gap:8px; text-align:right; }
+        .brand-logo { width:68px; height:68px; object-fit:cover; border-radius:50%; background:#f3f3f3; border:1px solid rgba(255,255,255,.1); box-shadow:0 10px 26px rgba(0,0,0,.32); }
+        .brand-caption { font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); white-space:nowrap; }
         @media (max-width:768px) {
           .desktop-only { display:none !important; }
-          .intro-grid { grid-template-columns:1fr !important; padding:64px 20px 120px !important; align-items:start !important; }
-          .intro-copy { width:100% !important; max-width:100% !important; }
+          .intro-grid { grid-template-columns:1fr !important; padding:38px 20px 96px !important; align-items:start !important; gap:28px !important; width:100% !important; }
+          .intro-copy { width:100% !important; max-width:100% !important; min-width:0 !important; padding-right:0 !important; }
+          .intro-copy > * { width:100% !important; max-width:100% !important; min-width:0 !important; }
+          .intro-copy h1 { font-size:clamp(40px, 12vw, 58px) !important; line-height:1.04 !important; }
+          .intro-copy p { max-width:100% !important; font-size:15px !important; line-height:1.75 !important; overflow-wrap:anywhere; }
           .cards-stack { display:none !important; }
-          nav { padding:20px !important; }
+          nav { padding:18px 16px !important; align-items:flex-start !important; gap:12px !important; }
+          .brand-right { align-items:flex-end !important; max-width:150px !important; }
+          .brand-logo { width:52px !important; height:52px !important; }
+          .brand-caption { font-size:8px !important; letter-spacing:.1em !important; white-space:normal !important; line-height:1.35 !important; }
           .mobile-actions { width:100% !important; display:grid !important; grid-template-columns:1fr !important; gap:14px !important; }
           .mobile-actions .btn { width:100% !important; }
           .mobile-video-showcase { display:flex !important; width:100%; overflow-x:auto; overflow-y:hidden; padding:8px 0 28px; gap:0; scroll-snap-type:x mandatory; scroll-behavior:smooth; -webkit-overflow-scrolling:touch; }
@@ -318,11 +330,10 @@ export default function RingTryOn() {
             {phase === 'tryOn' && (
               <button onClick={() => { stopCamera(); setPhase('intro'); setPhoto(null) }} className="btn btn-outline" style={{ padding:'10px 20px', fontSize:13 }}>← Retake</button>
             )}
-            <button onClick={() => setPhase('cart')} style={{ position:'relative', background:'none', border:'1px solid oklch(74% 0.12 78 / 0.25)', borderRadius:100, padding:'10px 18px', color:'var(--cream)', cursor:'pointer', display:'flex', alignItems:'center', gap:8, fontSize:13, fontFamily:'DM Sans' }}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-              Cart
-              {cart.reduce((s,i) => s+i.qty, 0) > 0 && <span className="cart-badge">{cart.reduce((s,i) => s+i.qty, 0)}</span>}
-            </button>
+            <div className="brand-right">
+              <img src={NEXTGENIQ_LOGO} alt="NextGenIQ.AI" className="brand-logo" />
+              <div className="brand-caption">A NextGenIQ.AI Product</div>
+            </div>
           </div>
         </nav>
 
@@ -346,7 +357,7 @@ export default function RingTryOn() {
 
             <div className="intro-grid" style={{ position:'relative', zIndex:5, display:'grid', gridTemplateColumns:'0.85fr 1.15fr', alignItems:'center', padding:'0 56px 40px', gap:48, minHeight:'calc(100vh - 88px)' }}>
               {/* LEFT copy */}
-              <div className="intro-copy" style={{ display:'flex', flexDirection:'column', gap:28 }}>
+              <div className="intro-copy" style={{ display:'flex', flexDirection:'column', gap:28, minWidth:0, width:'100%' }}>
                 <div style={{ display:'inline-flex', alignItems:'center', gap:12, fontSize:11, letterSpacing:'.38em', textTransform:'uppercase', color:'var(--gold)', animation:'fadeUp .8s .1s ease both' }}>
                   <div style={{ width:30, height:1, background:'var(--gold)' }} />
                   Virtual Try-On
@@ -354,7 +365,7 @@ export default function RingTryOn() {
                 <h1 className="serif" style={{ fontSize:'clamp(48px,5vw,76px)', lineHeight:1.06, letterSpacing:'-.02em', animation:'fadeUp 1s .22s ease both' }}>
                   Wear the ring<br /><em style={{ color:'var(--gold-lt)' }}>before you decide</em>
                 </h1>
-                <p style={{ fontSize:16, fontWeight:300, lineHeight:1.72, color:'var(--muted)', maxWidth:390, animation:'fadeUp 1s .38s ease both' }}>
+                <p style={{ fontSize:16, fontWeight:300, lineHeight:1.72, color:'var(--muted)', maxWidth:'100%', animation:'fadeUp 1s .38s ease both' }}>
                   Take a photo of your hand and see any ring on your finger — instantly and lifelike. Choose style, colour, and carat.
                 </p>
                 <div className="mobile-actions" style={{ display:'flex', gap:14, flexWrap:'wrap', animation:'fadeUp 1s .52s ease both' }}>
