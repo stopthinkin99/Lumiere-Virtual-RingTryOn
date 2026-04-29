@@ -679,7 +679,7 @@ export default function RingTryOn() {
             borderBottom: '1px solid oklch(74% 0.12 78 / 0.1)',
           }}
         >
-          <div className="serif" style={{ fontSize: 23, letterSpacing: '.08em', color: 'var(--gold-lt)' }}>
+          <div className="serif" style={{ fontSize: 35, letterSpacing: '.08em', color: 'var(--gold-lt)' }}>
             Lumière
           </div>
 
@@ -705,7 +705,7 @@ export default function RingTryOn() {
                 borderRadius: 100,
                 padding: '12px 20px',
                 color: 'var(--cream)',
-                fontSize: 13,
+                fontSize: 20,
                 fontFamily: 'DM Sans',
                 letterSpacing: '.04em',
                 background: 'rgba(255,255,255,0.02)',
@@ -826,7 +826,7 @@ export default function RingTryOn() {
                     animation: 'fadeUp .8s .1s ease both',
                   }}
                 >
-                  <div style={{ width: 30, height: 1, background: 'var(--gold)' }} />
+                  <div style={{ width: 45, height: 1, background: 'var(--gold)' }} />
                   Virtual Try-On
                 </div>
 
@@ -839,14 +839,14 @@ export default function RingTryOn() {
                     animation: 'fadeUp 1s .22s ease both',
                   }}
                 >
-                  Wear the ring
+                  Virtually Wear the ring
                   <br />
-                  <em style={{ color: 'var(--gold-lt)' }}>before you decide</em>
+                  <em style={{ color: 'var(--gold-lt)' }}>before you Buy</em>
                 </h1>
 
                 <p
                   style={{
-                    fontSize: 16,
+                    fontSize: 20,
                     fontWeight: 300,
                     lineHeight: 1.72,
                     color: 'var(--muted)',
@@ -854,8 +854,7 @@ export default function RingTryOn() {
                     animation: 'fadeUp 1s .38s ease both',
                   }}
                 >
-                  Take a photo of your hand and see any ring on your finger — instantly and lifelike.
-                  Choose style, colour, and carat.
+                  Take a photo of your hand
                 </p>
 
                 <div className="mobile-actions" style={{ display: 'flex', gap: 14, flexWrap: 'wrap', animation: 'fadeUp 1s .52s ease both' }}>
@@ -864,7 +863,7 @@ export default function RingTryOn() {
                       <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z" />
                       <circle cx="12" cy="13" r="4" />
                     </svg>
-                    Take Photo
+                    Take Photo of your hand
                   </button>
 
                   <label className="btn btn-outline" style={{ cursor: 'pointer' }}>
@@ -872,7 +871,7 @@ export default function RingTryOn() {
                       <path d="M9 12V4M9 4L6.5 6.5M9 4l2.5 2.5" />
                       <path d="M3 15h18" />
                     </svg>
-                    Upload a Photo
+                    Upload a Photo of your hand
                     <input ref={fileRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={handleUpload} />
                   </label>
                 </div>
