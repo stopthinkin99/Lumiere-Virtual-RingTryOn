@@ -463,6 +463,7 @@ export default function RingTryOn() {
         .btn {
           display: inline-flex;
           align-items: center;
+          justify-content: center;
           gap: 10px;
           padding: 15px 30px;
           border-radius: 100px;
@@ -496,6 +497,10 @@ export default function RingTryOn() {
         .btn-outline:hover {
           background: oklch(95% 0.012 82 / 0.11);
           transform: translateY(-2px);
+        }
+
+        .mobile-video-showcase {
+          display: none;
         }
 
         input[type=range] {
@@ -561,7 +566,8 @@ export default function RingTryOn() {
 
           .intro-grid {
             grid-template-columns: 1fr !important;
-            padding: 0 20px 80px !important;
+            padding: 64px 20px 120px !important;
+            align-items: start !important;
           }
 
           .cards-stack {
@@ -575,6 +581,25 @@ export default function RingTryOn() {
 
           nav {
             padding: 20px !important;
+          }
+
+          .mobile-video-showcase {
+            display: flex !important;
+            gap: 18px;
+            overflow-x: auto;
+            padding: 8px 0 24px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+          }
+
+          .mobile-video-showcase::-webkit-scrollbar {
+            display: none;
+          }
+
+          .mobile-video-card {
+            min-width: 86vw;
+            height: 430px;
+            scroll-snap-align: center;
           }
         }
 
@@ -673,6 +698,7 @@ export default function RingTryOn() {
                       animation: `glowPulse 4.5s ease-in-out ${ring.delay} infinite`,
                     }}
                   />
+
                   <img
                     src={ring.image}
                     alt=""
@@ -703,6 +729,7 @@ export default function RingTryOn() {
                   borderRadius: '50%',
                 }}
               />
+
               <div
                 style={{
                   position: 'absolute',
@@ -813,6 +840,103 @@ export default function RingTryOn() {
                   <p style={{ fontSize: 13, color: 'var(--muted)', fontWeight: 300 }}>
                     <strong style={{ color: 'var(--cream)', fontWeight: 400 }}>48,200+</strong> try-ons today
                   </p>
+                </div>
+
+                {/* Mobile video cards */}
+                <div className="mobile-video-showcase">
+                  {testimonials.map((t, i) => (
+                    <div
+                      key={i}
+                      className="mobile-video-card"
+                      style={{
+                        position: 'relative',
+                        borderRadius: 28,
+                        overflow: 'hidden',
+                        background: 'oklch(13% 0.008 270)',
+                        border: '1px solid oklch(74% 0.12 78 / 0.16)',
+                        boxShadow: '0 24px 70px rgba(0,0,0,.55)',
+                        flexShrink: 0,
+                        display: 'flex',
+                        flexDirection: 'column',
+                      }}
+                    >
+                      <div style={{ flex: 1, position: 'relative', overflow: 'hidden', background: t.bg }}>
+                        <video
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
+                          controls
+                          preload="metadata"
+                          style={{
+                            position: 'absolute',
+                            inset: 0,
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            zIndex: 1,
+                          }}
+                        >
+                          <source src={t.video} type="video/mp4" />
+                        </video>
+
+                        <div
+                          style={{
+                            position: 'absolute',
+                            inset: 0,
+                            zIndex: 2,
+                            pointerEvents: 'none',
+                            background: 'linear-gradient(to bottom, rgba(0,0,0,.08) 0%, rgba(0,0,0,.35) 100%)',
+                          }}
+                        />
+
+                        <div
+                          style={{
+                            position: 'absolute',
+                            top: 16,
+                            left: 16,
+                            zIndex: 4,
+                            background: 'rgba(0,0,0,.55)',
+                            backdropFilter: 'blur(8px)',
+                            border: '1px solid rgba(255,255,255,.12)',
+                            borderRadius: 100,
+                            padding: '6px 13px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 8,
+                            fontSize: 13,
+                          }}
+                        >
+                          <div
+                            style={{
+                              width: 8,
+                              height: 8,
+                              borderRadius: '50%',
+                              background: '#22c55e',
+                              boxShadow: '0 0 8px #22c55e',
+                            }}
+                          />
+                          Live try-on
+                        </div>
+                      </div>
+
+                      <div style={{ padding: '20px 22px 24px', background: 'oklch(13% 0.008 270)' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
+                          <div style={{ fontSize: 18, fontWeight: 500 }}>{t.name}</div>
+                          <div style={{ color: 'var(--gold)', fontSize: 15 }}>★★★★★</div>
+                        </div>
+
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
+                          <div style={{ width: 14, height: 14, borderRadius: '50%', background: t.swatch, flexShrink: 0 }} />
+                          <span style={{ fontSize: 14, color: 'var(--muted)' }}>{t.ring}</span>
+                        </div>
+
+                        <p style={{ fontSize: 15, color: 'var(--cream)', fontStyle: 'italic', lineHeight: 1.5 }}>
+                          {t.quote}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
 
@@ -1140,7 +1264,7 @@ export default function RingTryOn() {
                     pointerEvents: 'none',
                   }}
                 >
-                  Drag · Pinch to resize & rotate
+                  Drag · Pinch to resize &amp; rotate
                 </div>
               )}
             </div>
