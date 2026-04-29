@@ -549,7 +549,7 @@ export default function RingTryOn() {
                 {photo && <img src={photo} alt="hand" draggable={false}
                   style={{ width:'100%', height:'100%', objectFit:'cover', display:'block', pointerEvents:'none', userSelect:'none' }} />}
 
-                {/* Ring overlay */}
+                {/* Ring overlay — two-layer: band stays fixed, diamond center scales */}
                 <div onMouseDown={onPointerDown} onTouchStart={onPointerDown}
                   style={{
                     position:'absolute',
@@ -559,24 +559,36 @@ export default function RingTryOn() {
                     userSelect:'none', touchAction:'none',
                     width: ringSize,
                     willChange:'transform',
-                    filter:'drop-shadow(0 4px 20px rgba(0,0,0,.65))',
                   }}>
+                  {/* Layer 1: Full ring at base size (band never changes) */}
                   <img
                     src={selectedColor.image}
                     alt={selectedRing.name}
                     draggable={false}
-                    style={{
-                      width:'100%',
-                      objectFit:'contain',
-                      display:'block',
-                      pointerEvents:'none',
-                      // Scale up the diamond by changing transform-origin to center of gem
-                      // (visual carat effect — PNG scales uniformly, gem appears larger)
-                      transform: `scale(${0.7 + caratValue * 0.3})`,
-                      transformOrigin: 'center center',
-                      transition: isDragging ? 'none' : 'transform 0.2s',
-                    }}
+                    style={{ width:'100%', objectFit:'contain', display:'block', pointerEvents:'none', filter:'drop-shadow(0 4px 20px rgba(0,0,0,.65))' }}
                   />
+                  {/* Layer 2: Ring PNG scaled up, clipped to center gem area only */}
+                  {/* We clip to the middle 50% of the image — where the diamond sits */}
+                  {caratValue !== 0.5 && (
+                    <div style={{
+                      position:'absolute', inset:0,
+                      overflow:'hidden',
+                      // Clip to center 50% horizontally and top 65% vertically (gem area)
+                      clipPath: 'inset(0% 20% 35% 20%)',
+                    }}>
+                      <img
+                        src={selectedColor.image}
+                        alt=""
+                        draggable={false}
+                        style={{
+                          width:'100%', objectFit:'contain', display:'block', pointerEvents:'none',
+                          transform: `scale(${1 + (caratValue - 0.5) * 0.8})`,
+                          transformOrigin: '50% 38%',  // origin = center of gem (top portion of ring image)
+                          transition: 'transform 0.15s ease',
+                        }}
+                      />
+                    </div>
+                  )}
                 </div>
 
                 {!isDragging && (
@@ -584,10 +596,6 @@ export default function RingTryOn() {
                     Drag · Pinch to resize &amp; rotate
                   </div>
                 )}
-
-                {/* Size + Rotate sliders overlaid at bottom of left panel on mobile */}
-                <div style={{ position:'absolute', bottom:0, left:0, right:0, display:'none' }} className="mobile-sliders">
-                </div>
               </div>
 
               {/* ── RIGHT: Controls ── */}
@@ -595,30 +603,36 @@ export default function RingTryOn() {
 
                 {/* Ring name + price */}
                 <div>
-                  <div style={{ fontSize:11, color:'var(--gold)', letterSpacing:'.25em', textTransform:'uppercase', marginBottom:6 }}>
-                    Selected Ring
-                  </div>
-                  <h2 className="serif" style={{ fontSize:22, fontWeight:300, lineHeight:1.2, marginBottom:4 }}>
-                    {selectedRing.name}
-                  </h2>
+                  <div style={{ fontSize:11, color:'var(--gold)', letterSpacing:'.25em', textTransform:'uppercase', marginBottom:6 }}>Selected Ring</div>
+                  <h2 className="serif" style={{ fontSize:22, fontWeight:300, lineHeight:1.2, marginBottom:4 }}>{selectedRing.name}</h2>
                   <div style={{ fontSize:13, color:'var(--muted)', marginBottom:2 }}>{selectedRing.description}</div>
-                  <div style={{ fontSize:20, color:'var(--gold)', fontWeight:500, marginTop:6 }}>
-                    ${selectedRing.price.toLocaleString()}
-                  </div>
+                  <div style={{ fontSize:20, color:'var(--gold)', fontWeight:500, marginTop:6 }}>${selectedRing.price.toLocaleString()}</div>
                 </div>
 
                 <div className="divider" />
 
-                {/* Ring style selector */}
+                {/* Ring style — image grid like Brilliant Earth */}
                 <div>
                   <div className="ctrl-label">Ring Style</div>
-                  <div style={{ position:'relative' }}>
-                    <select value={selectedRingId} onChange={e => selectRing(e.target.value)}>
-                      {RING_CATALOG.map(r => (
-                        <option key={r.id} value={r.id}>{r.name} — ${r.price.toLocaleString()}</option>
-                      ))}
-                    </select>
-                    <div style={{ position:'absolute', right:14, top:'50%', transform:'translateY(-50%)', pointerEvents:'none', color:'var(--gold)' }}>▾</div>
+                  <div style={{ display:'grid', gridTemplateColumns:'repeat(4, 1fr)', gap:8 }}>
+                    {RING_CATALOG.map(r => (
+                      <button key={r.id} onClick={() => selectRing(r.id)}
+                        style={{
+                          background: selectedRingId === r.id ? 'rgba(201,168,50,0.12)' : 'rgba(255,255,255,0.03)',
+                          border: selectedRingId === r.id ? '1.5px solid rgba(201,168,50,0.6)' : '1.5px solid rgba(255,255,255,0.08)',
+                          borderRadius: 10, padding: '8px 4px 6px',
+                          cursor: 'pointer', display:'flex', flexDirection:'column', alignItems:'center', gap:5,
+                          transition:'all 0.18s',
+                        }}>
+                        <div style={{ width:52, height:34, display:'flex', alignItems:'center', justifyContent:'center', overflow:'hidden' }}>
+                          <img src={r.colors[0].image} alt={r.name}
+                            style={{ width:'100%', height:'100%', objectFit:'contain', filter:'drop-shadow(0 2px 6px rgba(0,0,0,.5))' }} />
+                        </div>
+                        <div style={{ fontSize:9, color: selectedRingId === r.id ? 'var(--gold)' : 'var(--muted)', textAlign:'center', lineHeight:1.3, letterSpacing:'.03em', fontWeight: selectedRingId === r.id ? 600 : 400 }}>
+                          {r.name.split(' ').slice(0,2).join(' ')}
+                        </div>
+                      </button>
+                    ))}
                   </div>
                 </div>
 
