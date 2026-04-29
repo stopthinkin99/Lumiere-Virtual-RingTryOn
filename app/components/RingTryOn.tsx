@@ -714,7 +714,6 @@ export default function RingTryOn() {
                 whiteSpace: 'nowrap',
               }}
             >
-              Lumière · A NextGenIQ Product
             </div>
           </div>
         </nav>
@@ -826,8 +825,8 @@ export default function RingTryOn() {
                     animation: 'fadeUp .8s .1s ease both',
                   }}
                 >
-                  <div style={{ width: 45, height: 1, background: 'var(--gold)' }} />
-                  Virtual Try-On
+                  <div style={{ width: 75, height: 0.40, background: 'var(--gold)' }} />
+                  AI Powered Virtual Try-On Before you Buy
                 </div>
 
                 <h1
