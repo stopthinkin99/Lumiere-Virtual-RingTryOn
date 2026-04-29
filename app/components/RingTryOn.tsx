@@ -117,6 +117,7 @@ export default function RingTryOn() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const fileRef = useRef<HTMLInputElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
+  const mobileShowcaseRef = useRef<HTMLDivElement>(null)
   const streamRef = useRef<MediaStream | null>(null)
   const lastPinchDist = useRef<number | null>(null)
   const lastPinchAngle = useRef<number | null>(null)
@@ -164,9 +165,35 @@ export default function RingTryOn() {
 
   useEffect(() => {
     if (phase !== 'intro') return
-    const t = setInterval(() => setIntroCard(i => (i + 1) % 3), 3800)
+
+    const t = setInterval(() => {
+      setIntroCard(i => (i + 1) % 3)
+    }, 3800)
+
     return () => clearInterval(t)
   }, [phase])
+
+  useEffect(() => {
+    if (phase !== 'intro') return
+
+    const isMobile = window.matchMedia('(max-width: 768px)').matches
+    if (!isMobile) return
+
+    const el = mobileShowcaseRef.current
+    if (!el) return
+
+    let index = 0
+
+    const t = setInterval(() => {
+      index = (index + 1) % testimonials.length
+      el.scrollTo({
+        left: index * el.clientWidth,
+        behavior: 'smooth',
+      })
+    }, 4500)
+
+    return () => clearInterval(t)
+  }, [phase, testimonials.length])
 
   const selectRing = useCallback((id: string) => {
     setSelectedRingId(id)
@@ -406,6 +433,8 @@ export default function RingTryOn() {
 
         html, body {
           width: 100%;
+          max-width: 100%;
+          overflow-x: hidden;
           background: var(--bg);
           color: var(--cream);
           font-family: 'DM Sans', sans-serif;
@@ -568,6 +597,15 @@ export default function RingTryOn() {
             grid-template-columns: 1fr !important;
             padding: 64px 20px 120px !important;
             align-items: start !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            overflow: hidden !important;
+          }
+
+          .intro-copy {
+            width: 100% !important;
+            max-width: 100% !important;
+            min-width: 0 !important;
           }
 
           .cards-stack {
@@ -581,14 +619,30 @@ export default function RingTryOn() {
 
           nav {
             padding: 20px !important;
+            gap: 12px !important;
+          }
+
+          .mobile-actions {
+            width: 100% !important;
+            display: grid !important;
+            grid-template-columns: 1fr !important;
+            gap: 14px !important;
+          }
+
+          .mobile-actions .btn {
+            width: 100% !important;
           }
 
           .mobile-video-showcase {
             display: flex !important;
-            gap: 18px;
+            width: 100%;
+            max-width: 100%;
             overflow-x: auto;
-            padding: 8px 0 24px;
+            overflow-y: hidden;
+            padding: 8px 0 28px;
+            gap: 0;
             scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
           }
 
@@ -597,9 +651,12 @@ export default function RingTryOn() {
           }
 
           .mobile-video-card {
-            min-width: 86vw;
+            flex: 0 0 100%;
+            width: 100%;
+            max-width: 100%;
             height: 430px;
-            scroll-snap-align: center;
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
           }
         }
 
@@ -610,7 +667,7 @@ export default function RingTryOn() {
         }
       `}</style>
 
-      <div style={{ minHeight: '100svh', background: 'var(--bg)', display: 'flex', flexDirection: 'column' }}>
+      <div style={{ minHeight: '100svh', background: 'var(--bg)', display: 'flex', flexDirection: 'column', overflowX: 'hidden' }}>
         <nav
           style={{
             position: 'relative',
@@ -756,7 +813,7 @@ export default function RingTryOn() {
                 minHeight: 'calc(100vh - 88px)',
               }}
             >
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
+              <div className="intro-copy" style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
                 <div
                   style={{
                     display: 'inline-flex',
@@ -801,7 +858,7 @@ export default function RingTryOn() {
                   Choose style, colour, and carat.
                 </p>
 
-                <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap', animation: 'fadeUp 1s .52s ease both' }}>
+                <div className="mobile-actions" style={{ display: 'flex', gap: 14, flexWrap: 'wrap', animation: 'fadeUp 1s .52s ease both' }}>
                   <button onClick={startCamera} className="btn btn-fill">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
                       <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z" />
@@ -842,8 +899,8 @@ export default function RingTryOn() {
                   </p>
                 </div>
 
-                {/* Mobile video cards */}
-                <div className="mobile-video-showcase">
+                {/* Mobile video carousel */}
+                <div ref={mobileShowcaseRef} className="mobile-video-showcase">
                   {testimonials.map((t, i) => (
                     <div
                       key={i}
@@ -855,7 +912,6 @@ export default function RingTryOn() {
                         background: 'oklch(13% 0.008 270)',
                         border: '1px solid oklch(74% 0.12 78 / 0.16)',
                         boxShadow: '0 24px 70px rgba(0,0,0,.55)',
-                        flexShrink: 0,
                         display: 'flex',
                         flexDirection: 'column',
                       }}
@@ -866,7 +922,6 @@ export default function RingTryOn() {
                           muted
                           loop
                           playsInline
-                          controls
                           preload="metadata"
                           style={{
                             position: 'absolute',
@@ -921,9 +976,9 @@ export default function RingTryOn() {
                       </div>
 
                       <div style={{ padding: '20px 22px 24px', background: 'oklch(13% 0.008 270)' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
-                          <div style={{ fontSize: 18, fontWeight: 500 }}>{t.name}</div>
-                          <div style={{ color: 'var(--gold)', fontSize: 15 }}>★★★★★</div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, marginBottom: 10 }}>
+                          <div style={{ fontSize: 18, fontWeight: 500, whiteSpace: 'nowrap' }}>{t.name}</div>
+                          <div style={{ color: 'var(--gold)', fontSize: 15, whiteSpace: 'nowrap' }}>★★★★★</div>
                         </div>
 
                         <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
