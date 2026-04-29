@@ -256,9 +256,9 @@ export default function RingTryOn() {
 
   // Testimonials data for intro cards
   const testimonials = [
-    { name: 'Sophia M.', quote: '"I cried when I saw it on my hand. Ordered instantly."', ring: 'Solitaire Round · 18k Gold', swatch: 'linear-gradient(135deg,#f0d898,#c9973a)', bg: 'radial-gradient(ellipse 80% 90% at 45% 40%, #3d2010 0%, #1a0c06 60%, #0a0704 100%)', person: '#c89068', glow: 'oklch(74% 0.12 78 / 0.6)' },
-    { name: 'Aisha K.', quote: '"Never thought I\'d buy a ring online. This changed everything."', ring: 'Sapphire Halo · Platinum', swatch: 'linear-gradient(135deg,#e8e8e8,#a8a8a8)', bg: 'radial-gradient(ellipse 80% 90% at 50% 40%, #0f1428 0%, #080c18 60%, #050608 100%)', person: '#b8988c', glow: 'oklch(74% 0.12 78 / 0.6)' },
-    { name: 'Priya & Leo', quote: '"He surprised me with this. We used the try-on together first!"', ring: 'Rose Gold Pavé · 14k', swatch: 'linear-gradient(135deg,#f4c0b4,#d47060)', bg: 'radial-gradient(ellipse 80% 90% at 52% 38%, #1e1008 0%, #100804 60%, #080604 100%)', person: '#d49868', glow: 'oklch(74% 0.12 78 / 0.5)' },
+    { name: 'Sophia M.', video: '/videos/ring1.mp4',quote: '"I cried when I saw it on my hand. Ordered instantly."', ring: 'Solitaire Round · 18k Gold', swatch: 'linear-gradient(135deg,#f0d898,#c9973a)', bg: 'radial-gradient(ellipse 80% 90% at 45% 40%, #3d2010 0%, #1a0c06 60%, #0a0704 100%)', person: '#c89068', glow: 'oklch(74% 0.12 78 / 0.6)' },
+    { name: 'Aisha K.', video: '/videos/ring2.mp4', quote: '"Never thought I\'d buy a ring online. This changed everything."', ring: 'Sapphire Halo · Platinum', swatch: 'linear-gradient(135deg,#e8e8e8,#a8a8a8)', bg: 'radial-gradient(ellipse 80% 90% at 50% 40%, #0f1428 0%, #080c18 60%, #050608 100%)', person: '#b8988c', glow: 'oklch(74% 0.12 78 / 0.6)' },
+    { name: 'Priya & Leo', video: '/videos/ring3.mp4', quote: '"He surprised me with this. We used the try-on together first!"', ring: 'Rose Gold Pavé · 14k', swatch: 'linear-gradient(135deg,#f4c0b4,#d47060)', bg: 'radial-gradient(ellipse 80% 90% at 52% 38%, #1e1008 0%, #100804 60%, #080604 100%)', person: '#d49868', glow: 'oklch(74% 0.12 78 / 0.5)' },
   ]
 
   return (
