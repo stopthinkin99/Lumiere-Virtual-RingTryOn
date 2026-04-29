@@ -89,7 +89,7 @@ const RING_CATALOG = [
 ]
 
 
-const NEXTGENIQ_LOGO = '/nextgeniq-logo.png'
+const NEXTGENIQ_LOGO = '/nextgeniq-logo.jpeg'
 
 type CartItem = { ring: typeof RING_CATALOG[0]; color: typeof RING_CATALOG[0]['colors'][0]; qty: number }
 type Phase = 'intro' | 'camera' | 'tryOn' | 'cart' | 'checkout'
