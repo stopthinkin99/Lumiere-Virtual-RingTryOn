@@ -906,7 +906,7 @@ export default function RingTryOn() {
 
         {/* NAV */}
         <nav style={{ position:'relative', zIndex:50, minHeight:112, padding:'12px 40px', display:'flex', alignItems:'center', justifyContent:'space-between', borderBottom:'1px solid oklch(74% 0.12 78 / 0.1)', flexShrink:0 }}>
-          <div className="serif" style={{ fontSize:23, letterSpacing:'.08em', color:'var(--gold-lt)' }}>
+          <div className="serif" style={{ fontSize:33, letterSpacing:'.08em', color:'var(--gold-lt)' }}>
             Lumière
           </div>
 
@@ -927,7 +927,7 @@ export default function RingTryOn() {
 
             <div className="brand-right">
               <img src={NEXTGENIQ_LOGO} alt="NextGenIQ.AI" className="brand-logo" />
-              <div className="brand-caption">A NextGenIQ.AI Product</div>
+              <div className="brand-caption" style={{ fontSize:12, color:'var(--gold-lt)' }}>A NextGenIQ.AI Product</div>
             </div>
           </div>
         </nav>
@@ -1022,8 +1022,8 @@ export default function RingTryOn() {
                     animation:'fadeUp 1s .22s ease both',
                   }}
                 >
-                  Wear the ring<br />
-                  <em style={{ color:'var(--gold-lt)' }}>before you decide</em>
+                  Virtually Wear the ring<br />
+                  <em style={{ color:'var(--gold-lt)' }}>before you Buy</em>
                 </h1>
 
                 <p
@@ -1036,7 +1036,7 @@ export default function RingTryOn() {
                     animation:'fadeUp 1s .38s ease both',
                   }}
                 >
-                  Take a photo of your hand and see any ring on your finger — instantly and lifelike. Choose style, colour, and carat.
+                  Take a photo of your hand.
                 </p>
 
                 <div className="mobile-actions" style={{ display:'flex', gap:14, flexWrap:'wrap', animation:'fadeUp 1s .52s ease both' }}>
@@ -1045,7 +1045,7 @@ export default function RingTryOn() {
                       <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z" />
                       <circle cx="12" cy="13" r="4" />
                     </svg>
-                    Take Photo
+                    Take Photo of your Hand
                   </button>
 
                   <label className="btn btn-outline" style={{ cursor:'pointer' }}>
@@ -1053,7 +1053,7 @@ export default function RingTryOn() {
                       <path d="M9 12V4M9 4L6.5 6.5M9 4l2.5 2.5" />
                       <path d="M3 15h18" />
                     </svg>
-                    Upload a Photo
+                    Upload a Photo of your Hand
                     <input ref={fileRef} type="file" accept="image/*" style={{ display:'none' }} onChange={handleUpload} />
                   </label>
                 </div>
