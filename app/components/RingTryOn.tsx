@@ -23,7 +23,6 @@ const RING_CATALOG = [
     colors: [
       { id: 'gold', label: '18K Gold', swatch: 'linear-gradient(135deg,#f0d898,#c9973a)', image: '/rings/Gold_Emerald.png' },
       { id: 'rose', label: 'Rose Gold', swatch: 'linear-gradient(135deg,#f4c0b4,#d47060)', image: '/rings/Rose_Gold_Emerald.png' },
-      { id: 'yellow', label: 'Yellow Gold', swatch: 'linear-gradient(135deg,#f5e070,#c8a020)', image: '/rings/Yellow_Gold_Emerald.png' },
       { id: 'platinum', label: 'Platinum', swatch: 'linear-gradient(135deg,#e8e8f0,#a0a0b8)', image: '/rings/Platinum_Emerald.png' },
     ],
   },
@@ -36,7 +35,6 @@ const RING_CATALOG = [
     colors: [
       { id: 'gold', label: '18K Gold', swatch: 'linear-gradient(135deg,#f0d898,#c9973a)', image: '/rings/Gold_Square.png' },
       { id: 'rose', label: 'Rose Gold', swatch: 'linear-gradient(135deg,#f4c0b4,#d47060)', image: '/rings/Rose_Square.png' },
-      { id: 'yellow', label: 'Yellow Gold', swatch: 'linear-gradient(135deg,#f5e070,#c8a020)', image: '/rings/Yellow_Square.png' },
       { id: 'platinum', label: 'Platinum', swatch: 'linear-gradient(135deg,#e8e8f0,#a0a0b8)', image: '/rings/Platinum_Square.png' },
     ],
   },
@@ -50,7 +48,6 @@ const RING_CATALOG = [
       { id: 'gold', label: '18K Gold', swatch: 'linear-gradient(135deg,#f0d898,#c9973a)', image: '/rings/Gold_Oval.png' },
       { id: 'rose', label: 'Rose Gold', swatch: 'linear-gradient(135deg,#f4c0b4,#d47060)', image: '/rings/Rose_Oval.png' },
       { id: 'platinum', label: 'Platinum', swatch: 'linear-gradient(135deg,#e8e8f0,#a0a0b8)', image: '/rings/Platinum_Oval.png' },
-      { id: 'yellow', label: 'Yellow Gold', swatch: 'linear-gradient(135deg,#f5e070,#c8a020)', image: '/rings/Yellow_Oval.png' },
     ],
   },
   {
@@ -63,7 +60,6 @@ const RING_CATALOG = [
       { id: 'white', label: 'White Gold', swatch: 'linear-gradient(135deg,#e8e8f0,#a0a0b8)', image: '/rings/White_Pear.png' },
       { id: 'gold', label: '18K Gold', swatch: 'linear-gradient(135deg,#f0d898,#c9973a)', image: '/rings/Gold_Pear.png' },
       { id: 'rose', label: 'Rose Gold', swatch: 'linear-gradient(135deg,#f4c0b4,#d47060)', image: '/rings/Rose_Pear.png' },
-      { id: 'yellow', label: 'Yellow Gold', swatch: 'linear-gradient(135deg,#f5e070,#c8a020)', image: '/rings/Yellow_Pear.png' },
     ],
   },
   {
@@ -75,7 +71,6 @@ const RING_CATALOG = [
     colors: [
       { id: 'rose', label: 'Rose Gold', swatch: 'linear-gradient(135deg,#f4c0b4,#d47060)', image: '/rings/Rose_Vintage.png' },
       { id: 'gold', label: '18K Gold', swatch: 'linear-gradient(135deg,#f0d898,#c9973a)', image: '/rings/Gold_Vintage.png' },
-      { id: 'yellow', label: 'Yellow Gold', swatch: 'linear-gradient(135deg,#f5e070,#c8a020)', image: '/rings/Yellow_Vintage.png' },
       { id: 'white', label: 'White Gold', swatch: 'linear-gradient(135deg,#e8e8f0,#a0a0b8)', image: '/rings/White_Vintage.png' },
     ],
   },
@@ -88,7 +83,6 @@ const RING_CATALOG = [
     colors: [
       { id: 'rose', label: 'Rose Gold', swatch: 'linear-gradient(135deg,#f4c0b4,#d47060)', image: '/rings/Rose_Heart.png' },
       { id: 'gold', label: '18K Gold', swatch: 'linear-gradient(135deg,#f0d898,#c9973a)', image: '/rings/Gold_Heart.png' },
-      { id: 'yellow', label: 'Yellow Gold', swatch: 'linear-gradient(135deg,#f5e070,#c8a020)', image: '/rings/Yellow_Heart.png' },
       { id: 'white', label: 'White Gold', swatch: 'linear-gradient(135deg,#e8e8f0,#a0a0b8)', image: '/rings/White_Heart.png' },
     ],
   },
