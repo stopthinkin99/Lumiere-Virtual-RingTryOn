@@ -11,7 +11,7 @@ const RING_CATALOG = [
     colors: [
       { id: 'gold', label: '18K Gold', swatch: 'linear-gradient(135deg,#f0d898,#c9973a)', image: '/rings/Gold.png' },
       { id: 'rose', label: 'Rose Gold', swatch: 'linear-gradient(135deg,#f4c0b4,#d47060)', image: '/rings/Rose_Gold.png' },
-      { id: 'yellow', label: 'Yellow Gold', swatch: 'linear-gradient(135deg,#f5e070,#c8a020)', image: '/rings/Yellow_Gold.png' },
+      { id: 'silver', label: 'Silver', swatch: 'linear-gradient(135deg,#e8e8f0,#a0a0b8)', image: '/rings/Silver.png' },
     ],
   },
   {
