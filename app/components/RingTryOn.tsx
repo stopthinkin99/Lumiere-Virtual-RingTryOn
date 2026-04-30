@@ -436,7 +436,7 @@ export default function RingTryOn() {
         {/* NAV */}
         <nav style={{ position:'relative', zIndex:50, minHeight:112, padding:'12px 40px', display:'flex', alignItems:'center', justifyContent:'space-between', borderBottom:'1px solid oklch(74% 0.12 78 / 0.1)', flexShrink:0 }}>
           <div>
-            <div className="serif" style={{ fontSize:50, letterSpacing:'.08em', color:'var(--gold-lt)', lineHeight:1 }}>Lumière</div>
+            <div className="serif" style={{ fontSize:40, letterSpacing:'.08em', color:'var(--gold-lt)', lineHeight:1 }}>Lumière 9</div>
           </div>
           <div style={{ display:'flex', alignItems:'center', gap:12 }}>
             {phase === 'tryOn' && (
