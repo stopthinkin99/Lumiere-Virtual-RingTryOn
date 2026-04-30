@@ -340,30 +340,33 @@ export default function RingTryOn() {
 
           /* ── Mobile tryOn: side-by-side windowed ── */
           .tryon-layout {
-            grid-template-columns: 1fr 47% !important;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 47%) !important;
             height: calc(100svh - 80px) !important;
             overflow: hidden !important;
-            gap: 0 !important;
+            gap: 6px !important;
+            padding: 8px 14px 8px 8px !important;
           }
           .tryon-left {
-            /* windowed: inset from edges */
-            margin: 8px 0 8px 8px !important;
+            /* windowed: inset handled by parent padding */
+            margin: 0 !important;
             border-radius: 12px !important;
             overflow: hidden !important;
-            /* ensure it doesn't push outside */
             min-width: 0 !important;
+            max-width: 100% !important;
           }
           .tryon-right {
-            /* windowed: inset from edges, compact */
-            margin: 8px 8px 8px 6px !important;
+            /* no external margin so the right side never gets clipped */
+            margin: 0 !important;
             border-radius: 12px !important;
             border: 1px solid oklch(74% 0.12 78 / 0.14) !important;
             border-left: 1px solid oklch(74% 0.12 78 / 0.14) !important;
-            padding: 10px 8px 8px !important;
+            padding: 10px 10px 8px !important;
             gap: 7px !important;
             overflow: hidden !important;
             background: oklch(10% 0.008 270) !important;
-            /* Scale everything down to fit without scroll */
+            min-width: 0 !important;
+            max-width: 100% !important;
+            width: 100% !important;
             font-size: 11px !important;
           }
           /* Scale down controls on mobile right panel */
@@ -373,11 +376,11 @@ export default function RingTryOn() {
           .tryon-right .divider { margin:0 !important; }
           .tryon-right .serif { font-size:13px !important; line-height:1.1 !important; }
           /* ring grid on mobile */
-          .tryon-right .ring-grid { gap:4px !important; }
-          .tryon-right .ring-grid button { padding:4px 2px 3px !important; border-radius:7px !important; }
+          .tryon-right .ring-grid { grid-template-columns:repeat(4, minmax(0, 1fr)) !important; gap:4px !important; width:100% !important; max-width:100% !important; overflow:visible !important; }
+          .tryon-right .ring-grid button { min-width:0 !important; width:100% !important; padding:4px 2px 3px !important; border-radius:7px !important; }
           .tryon-right .ring-grid img { width:100% !important; }
-          .tryon-right .ring-grid-thumb { width:34px !important; height:22px !important; }
-          .tryon-right .ring-grid-label { font-size:6.5px !important; }
+          .tryon-right .ring-grid-thumb { width:30px !important; max-width:100% !important; height:22px !important; }
+          .tryon-right .ring-grid-label { font-size:6.2px !important; word-break:break-word !important; }
           /* action buttons */
           .tryon-right .action-add { padding:9px 4px !important; font-size:9px !important; border-radius:8px !important; gap:4px !important; }
           .tryon-right .action-save { padding:8px 4px !important; font-size:9px !important; border-radius:8px !important; gap:4px !important; }
@@ -385,6 +388,18 @@ export default function RingTryOn() {
           .tryon-right .multi-ring-row { gap:5px !important; }
           .tryon-right .multi-check-label { font-size:9px !important; }
           .tryon-right .delete-ring-btn { padding:5px 7px !important; font-size:7px !important; letter-spacing:.05em !important; }
+        }
+
+        @media (max-width:390px) {
+          .tryon-layout {
+            grid-template-columns: minmax(0, 1fr) minmax(0, 49%) !important;
+            padding-right: 12px !important;
+            gap: 5px !important;
+          }
+          .tryon-right { padding-left: 8px !important; padding-right: 8px !important; }
+          .tryon-right .ring-grid { gap:3px !important; }
+          .tryon-right .ring-grid-thumb { width:28px !important; height:20px !important; }
+          .tryon-right .ring-grid-label { font-size:5.9px !important; }
         }
         @media (min-width:769px) { .mobile-only { display:none !important; } }
         @media (min-width:769px) and (max-height:780px) {
