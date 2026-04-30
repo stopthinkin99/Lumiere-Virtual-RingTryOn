@@ -305,6 +305,16 @@ export default function RingTryOn() {
         .tryon-right { overflow:hidden; background:oklch(8% 0.008 270); border-left:1px solid oklch(74% 0.12 78 / 0.1); display:flex; flex-direction:column; padding:18px 22px; gap:14px; min-height:0; }
         .ctrl-label { font-size:9px; color:var(--gold); letter-spacing:.32em; text-transform:uppercase; font-weight:600; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; }
         .ctrl-label span { font-size:12px; color:var(--cream); font-weight:400; letter-spacing:.04em; text-transform:none; }
+        .range-stack { display:flex; flex-direction:column; gap:16px; width:100%; }
+        .range-control { width:100%; }
+        .range-control .ctrl-label { font-size:11px; letter-spacing:.22em; margin-bottom:11px; }
+        .range-control .ctrl-label span { font-size:14px; letter-spacing:.03em; }
+        .range-control input[type=range] { height:4px; width:100%; }
+        .range-control input[type=range]::-webkit-slider-thumb { width:22px; height:22px; box-shadow:0 0 12px rgba(201,168,50,.62), 0 0 22px rgba(201,168,50,.25); }
+        .range-control input[type=range]::-moz-range-thumb { width:22px; height:22px; border-radius:50%; background:linear-gradient(135deg,var(--gold),var(--gold-lt)); border:2px solid rgba(0,0,0,.3); box-shadow:0 0 12px rgba(201,168,50,.62), 0 0 22px rgba(201,168,50,.25); }
+        .action-stack { display:flex; flex-direction:column; gap:12px; width:100%; }
+        .action-add, .action-save { width:100%; min-height:54px; font-size:15px !important; letter-spacing:.12em !important; }
+        .action-add svg, .action-save svg { width:20px; height:20px; flex-shrink:0; }
         .divider { height:1px; background:linear-gradient(90deg,transparent,oklch(74% 0.12 78 / 0.12),transparent); flex-shrink:0; }
 
         /* Multi-ring checkbox */
@@ -312,7 +322,7 @@ export default function RingTryOn() {
         .multi-check-wrap { display:flex; align-items:center; gap:8px; cursor:pointer; user-select:none; }
         .multi-check-wrap input[type=checkbox] { width:14px; height:14px; accent-color:var(--gold); cursor:pointer; }
         .multi-check-label { font-size:11px; font-weight:600; color:var(--gold); letter-spacing:.08em; }
-        .delete-ring-btn { border:1px solid oklch(74% 0.12 78 / 0.28); background:rgba(255,255,255,0.035); color:var(--cream); border-radius:999px; padding:7px 12px; font-size:10px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; cursor:pointer; font-family:'DM Sans',sans-serif; transition:all .2s ease; }
+        .delete-ring-btn { width:100%; min-height:40px; display:flex; align-items:center; justify-content:center; border:1px solid oklch(74% 0.12 78 / 0.28); background:rgba(255,255,255,0.035); color:var(--cream); border-radius:999px; padding:10px 14px; font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; cursor:pointer; font-family:'DM Sans',sans-serif; transition:all .2s ease; }
         .delete-ring-btn:hover:not(:disabled) { background:rgba(201,168,50,0.12); border-color:rgba(201,168,50,0.55); color:var(--gold-lt); transform:translateY(-1px); }
         .delete-ring-btn:disabled { opacity:.35; cursor:not-allowed; }
 
@@ -381,13 +391,21 @@ export default function RingTryOn() {
           .tryon-right .ring-grid img { width:100% !important; }
           .tryon-right .ring-grid-thumb { width:30px !important; max-width:100% !important; height:22px !important; }
           .tryon-right .ring-grid-label { font-size:6.2px !important; word-break:break-word !important; }
+          /* stacked full-width scale and rotate controls */
+          .tryon-right .range-stack { gap:9px !important; }
+          .tryon-right .range-control .ctrl-label { font-size:8px !important; letter-spacing:.12em !important; margin-bottom:7px !important; }
+          .tryon-right .range-control .ctrl-label span { font-size:10px !important; }
+          .tryon-right .range-control input[type=range] { height:3px !important; }
+          .tryon-right .range-control input[type=range]::-webkit-slider-thumb { width:18px !important; height:18px !important; }
           /* action buttons */
-          .tryon-right .action-add { padding:9px 4px !important; font-size:9px !important; border-radius:8px !important; gap:4px !important; }
-          .tryon-right .action-save { padding:8px 4px !important; font-size:9px !important; border-radius:8px !important; gap:4px !important; }
+          .tryon-right .action-stack { gap:8px !important; width:100% !important; }
+          .tryon-right .action-add { width:100% !important; min-height:42px !important; padding:11px 6px !important; font-size:10.5px !important; border-radius:9px !important; gap:6px !important; }
+          .tryon-right .action-save { width:100% !important; min-height:40px !important; padding:10px 6px !important; font-size:10.5px !important; border-radius:9px !important; gap:6px !important; }
+          .tryon-right .action-add svg, .tryon-right .action-save svg { width:17px !important; height:17px !important; }
           .tryon-right .action-retake { font-size:8px !important; padding:4px !important; }
-          .tryon-right .multi-ring-row { gap:5px !important; }
+          .tryon-right .multi-ring-row { gap:6px !important; }
           .tryon-right .multi-check-label { font-size:9px !important; }
-          .tryon-right .delete-ring-btn { padding:5px 7px !important; font-size:7px !important; letter-spacing:.05em !important; }
+          .tryon-right .delete-ring-btn { width:100% !important; min-height:28px !important; padding:6px 8px !important; font-size:8px !important; letter-spacing:.06em !important; }
         }
 
         @media (max-width:390px) {
@@ -397,6 +415,8 @@ export default function RingTryOn() {
             gap: 5px !important;
           }
           .tryon-right { padding-left: 8px !important; padding-right: 8px !important; }
+          .tryon-right .range-control .ctrl-label { font-size:7.2px !important; }
+          .tryon-right .range-control .ctrl-label span { font-size:9px !important; }
           .tryon-right .ring-grid { gap:3px !important; }
           .tryon-right .ring-grid-thumb { width:28px !important; height:20px !important; }
           .tryon-right .ring-grid-label { font-size:5.9px !important; }
@@ -672,10 +692,10 @@ export default function RingTryOn() {
 
                 <div className="divider" />
 
-                {/* Size + Rotate — in multi mode control active placed ring */}
-                <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:16 }}>
-                  <div>
-                    <div className="ctrl-label">Ring Size <span>{Math.round(multiMode && activePlacedRing ? activePlacedRing.size : ringSize)}px</span></div>
+                {/* Scale + Rotate — full-width stacked controls */}
+                <div className="range-stack">
+                  <div className="range-control">
+                    <div className="ctrl-label">Scale the Ring <span>{Math.round(multiMode && activePlacedRing ? activePlacedRing.size : ringSize)}px</span></div>
                     <input type="range" min={20} max={600}
                       value={multiMode && activePlacedRing ? activePlacedRing.size : ringSize}
                       onChange={e => {
@@ -683,8 +703,8 @@ export default function RingTryOn() {
                         else setRingSize(+e.target.value)
                       }} />
                   </div>
-                  <div>
-                    <div className="ctrl-label">Rotate <span>{Math.round(multiMode && activePlacedRing ? activePlacedRing.rotation : ringRotation)}°</span></div>
+                  <div className="range-control">
+                    <div className="ctrl-label">Rotate the Ring <span>{Math.round(multiMode && activePlacedRing ? activePlacedRing.rotation : ringRotation)}°</span></div>
                     <input type="range" min={-180} max={180}
                       value={multiMode && activePlacedRing ? activePlacedRing.rotation : ringRotation}
                       onChange={e => {
@@ -696,11 +716,11 @@ export default function RingTryOn() {
 
                 <div className="divider" />
 
-                <div style={{ display:'flex', flexDirection:'column', gap:10 }}>
-                  <button className="action-add" onClick={addToCart} style={{ width:'100%', padding:'14px', borderRadius:12, border:'none', background:addedToCart?'var(--gold-dk)':'linear-gradient(135deg,var(--gold),var(--gold-lt))', color:'#08070a', fontSize:13, letterSpacing:'.1em', fontWeight:700, cursor:'pointer', fontFamily:'DM Sans', display:'flex', alignItems:'center', justifyContent:'center', gap:10, transition:'all .3s' }}>
+                <div className="action-stack">
+                  <button className="action-add" onClick={addToCart} style={{ width:'100%', padding:'16px', borderRadius:12, border:'none', background:addedToCart?'var(--gold-dk)':'linear-gradient(135deg,var(--gold),var(--gold-lt))', color:'#08070a', fontSize:15, letterSpacing:'.12em', fontWeight:800, cursor:'pointer', fontFamily:'DM Sans', display:'flex', alignItems:'center', justifyContent:'center', gap:12, transition:'all .3s' }}>
                     {addedToCart ? '✓ Added to Cart!' : (<><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Add to Cart · ${selectedRing.price.toLocaleString()}</>)}
                   </button>
-                  <button className="action-save" onClick={savePhoto} style={{ width:'100%', padding:'13px', borderRadius:12, border:'1px solid oklch(74% 0.12 78 / 0.3)', background:photoSaved?'oklch(74% 0.12 78 / 0.1)':'transparent', color:photoSaved?'var(--gold)':'var(--cream)', fontSize:13, letterSpacing:'.1em', fontWeight:500, cursor:'pointer', fontFamily:'DM Sans', display:'flex', alignItems:'center', justifyContent:'center', gap:10, transition:'all .3s' }}>
+                  <button className="action-save" onClick={savePhoto} style={{ width:'100%', padding:'15px', borderRadius:12, border:'1px solid oklch(74% 0.12 78 / 0.3)', background:photoSaved?'oklch(74% 0.12 78 / 0.1)':'transparent', color:photoSaved?'var(--gold)':'var(--cream)', fontSize:15, letterSpacing:'.12em', fontWeight:700, cursor:'pointer', fontFamily:'DM Sans', display:'flex', alignItems:'center', justifyContent:'center', gap:12, transition:'all .3s' }}>
                     {photoSaved ? '✓ Photo Saved!' : (<><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>Save Photo</>)}
                   </button>
                   <button className="action-retake" onClick={() => { stopCamera(); setPhase('intro'); setPhoto(null) }} style={{ width:'100%', padding:'8px', borderRadius:12, border:'none', background:'transparent', color:'var(--muted)', fontSize:12, cursor:'pointer', fontFamily:'DM Sans', letterSpacing:'.06em' }}>← Try a different photo</button>
