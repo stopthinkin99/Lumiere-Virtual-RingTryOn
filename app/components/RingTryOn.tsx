@@ -245,6 +245,23 @@ export default function RingTryOn() {
     setAddedToCart(true); setTimeout(() => { setAddedToCart(false); setPhase('cart') }, 800)
   }, [selectedRing, selectedColor])
 
+  const deleteLastSelectedRing = useCallback(() => {
+    if (!multiMode || placedRings.length === 0) return
+
+    const targetId = activePlacedId ?? placedRings[placedRings.length - 1].id
+    const nextPlacedRings = placedRings.filter(p => p.id !== targetId)
+    const nextActiveRing = nextPlacedRings.length ? nextPlacedRings[nextPlacedRings.length - 1] : null
+
+    setPlacedRings(nextPlacedRings)
+    setActivePlacedId(nextActiveRing?.id ?? null)
+
+    if (nextActiveRing) {
+      const nextRing = RING_CATALOG.find(r => r.id === nextActiveRing.ringId)!
+      setSelectedRingId(nextActiveRing.ringId)
+      setSelectedColorId(nextActiveRing.colorId ?? nextRing.colors[0].id)
+    }
+  }, [multiMode, placedRings, activePlacedId])
+
   const cartTotal = cart.reduce((sum, i) => sum + i.ring.price * i.qty, 0)
 
   // Active placed ring for sliders
@@ -291,9 +308,13 @@ export default function RingTryOn() {
         .divider { height:1px; background:linear-gradient(90deg,transparent,oklch(74% 0.12 78 / 0.12),transparent); flex-shrink:0; }
 
         /* Multi-ring checkbox */
+        .multi-ring-row { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
         .multi-check-wrap { display:flex; align-items:center; gap:8px; cursor:pointer; user-select:none; }
         .multi-check-wrap input[type=checkbox] { width:14px; height:14px; accent-color:var(--gold); cursor:pointer; }
         .multi-check-label { font-size:11px; font-weight:600; color:var(--gold); letter-spacing:.08em; }
+        .delete-ring-btn { border:1px solid oklch(74% 0.12 78 / 0.28); background:rgba(255,255,255,0.035); color:var(--cream); border-radius:999px; padding:7px 12px; font-size:10px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; cursor:pointer; font-family:'DM Sans',sans-serif; transition:all .2s ease; }
+        .delete-ring-btn:hover:not(:disabled) { background:rgba(201,168,50,0.12); border-color:rgba(201,168,50,0.55); color:var(--gold-lt); transform:translateY(-1px); }
+        .delete-ring-btn:disabled { opacity:.35; cursor:not-allowed; }
 
         /* Mobile: side-by-side windowed, no scroll */
         @media (max-width:768px) {
@@ -361,7 +382,9 @@ export default function RingTryOn() {
           .tryon-right .action-add { padding:9px 4px !important; font-size:9px !important; border-radius:8px !important; gap:4px !important; }
           .tryon-right .action-save { padding:8px 4px !important; font-size:9px !important; border-radius:8px !important; gap:4px !important; }
           .tryon-right .action-retake { font-size:8px !important; padding:4px !important; }
+          .tryon-right .multi-ring-row { gap:5px !important; }
           .tryon-right .multi-check-label { font-size:9px !important; }
+          .tryon-right .delete-ring-btn { padding:5px 7px !important; font-size:7px !important; letter-spacing:.05em !important; }
         }
         @media (min-width:769px) { .mobile-only { display:none !important; } }
         @media (min-width:769px) and (max-height:780px) {
@@ -554,9 +577,6 @@ export default function RingTryOn() {
                     <div key={p.id} onMouseDown={e => onPointerDown(e, p.id)} onTouchStart={e => onPointerDown(e, p.id)}
                       style={{ position:'absolute', left:`${p.x}%`, top:`${p.y}%`, transform:`translate(-50%,-50%) rotate(${p.rotation + (ring.rotation ?? 0)}deg)`, cursor:isDragging&&activePlacedId===p.id?'grabbing':'grab', userSelect:'none', touchAction:'none', width:p.size, willChange:'transform', outline:isActive?'2px solid rgba(201,168,50,0.6)':'none', outlineOffset:4, borderRadius:4 }}>
                       <img src={color.image} alt={ring.name} draggable={false} style={{ width:'100%', objectFit:'contain', display:'block', pointerEvents:'none', filter:'drop-shadow(0 4px 20px rgba(0,0,0,.65))' }} />
-                      {/* Remove button */}
-                      <div onClick={e => { e.stopPropagation(); setPlacedRings(prev => prev.filter(r => r.id !== p.id)); if (activePlacedId === p.id) setActivePlacedId(null) }}
-                        style={{ position:'absolute', top:-8, right:-8, width:18, height:18, borderRadius:'50%', background:'rgba(220,50,50,0.9)', color:'#fff', fontSize:11, display:'flex', alignItems:'center', justifyContent:'center', cursor:'pointer', fontWeight:700, lineHeight:1, zIndex:10 }}>×</div>
                     </div>
                   )
                 })}
@@ -580,14 +600,27 @@ export default function RingTryOn() {
                 <div className="divider" />
 
                 {/* Multi-ring toggle */}
-                <label className="multi-check-wrap">
-                  <input type="checkbox" checked={multiMode} onChange={e => {
-                    setMultiMode(e.target.checked)
-                    if (!e.target.checked) { setPlacedRings([]); setActivePlacedId(null) }
-                  }} />
-                  <span className="multi-check-label">Multi-Ring Mode</span>
-                  {multiMode && <span style={{ fontSize:9, color:'var(--muted)', letterSpacing:'.06em' }}>— tap styles to place</span>}
-                </label>
+                <div className="multi-ring-row">
+                  <label className="multi-check-wrap">
+                    <input type="checkbox" checked={multiMode} onChange={e => {
+                      setMultiMode(e.target.checked)
+                      if (!e.target.checked) { setPlacedRings([]); setActivePlacedId(null) }
+                    }} />
+                    <span className="multi-check-label">Multi-Ring Mode</span>
+                    {multiMode && <span style={{ fontSize:9, color:'var(--muted)', letterSpacing:'.06em' }}>— tap styles to place</span>}
+                  </label>
+
+                  {multiMode && (
+                    <button
+                      type="button"
+                      className="delete-ring-btn"
+                      onClick={deleteLastSelectedRing}
+                      disabled={placedRings.length === 0}
+                    >
+                      Delete Ring
+                    </button>
+                  )}
+                </div>
 
                 {/* Ring grid */}
                 <div>
