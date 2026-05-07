@@ -295,80 +295,96 @@ export default function RingTryOn() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap');
         *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-        :root{--bg:#08070a;--gold:oklch(74% 0.12 78);--gold-lt:oklch(88% 0.08 78);--gold-dk:oklch(50% 0.11 70);--cream:oklch(95% 0.012 82);--muted:oklch(56% 0.014 270);}
+        :root{
+          --bg:#ffffff;
+          --bg2:#f7f6f4;
+          --bg3:#f0ede8;
+          --gold:oklch(58% 0.14 72);
+          --gold-lt:oklch(50% 0.13 68);
+          --gold-dk:oklch(42% 0.12 66);
+          --cream:#1a1612;
+          --muted:#6b6560;
+          --border:rgba(180,155,100,0.25);
+        }
         html,body{width:100%;max-width:100%;overflow-x:hidden;background:var(--bg);color:var(--cream);font-family:'DM Sans',sans-serif;}
-        body::after{content:'';position:fixed;inset:0;z-index:1000;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:160px;opacity:0.022;}
         @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
         @keyframes fadeIn{from{opacity:0}to{opacity:1}}
         @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
         @keyframes driftRing{0%{transform:translate3d(0,0,0)}25%{transform:translate3d(12px,-16px,0)}50%{transform:translate3d(-10px,-28px,0)}75%{transform:translate3d(16px,-12px,0)}100%{transform:translate3d(0,0,0)}}
         @keyframes glowPulse{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:1;transform:scale(1.18)}}
         .serif{font-family:'Instrument Serif',serif;}
-        .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 30px;border-radius:100px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:400;letter-spacing:.04em;cursor:pointer;border:none;transition:all .22s ease;}
-        .btn-fill{background:var(--cream);color:#08070a;}
-        .btn-fill:hover{background:#fff;transform:translateY(-2px);}
-        .btn-outline{background:oklch(95% 0.012 82 / 0.06);color:var(--cream);border:1px solid oklch(95% 0.012 82 / 0.15);backdrop-filter:blur(10px);}
-        .btn-outline:hover{background:oklch(95% 0.012 82 / 0.11);transform:translateY(-2px);}
-        input[type=range]{height:3px;-webkit-appearance:none;background:rgba(201,168,50,.2);border-radius:2px;outline:none;width:100%;}
-        input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-lt));cursor:pointer;box-shadow:0 0 10px rgba(201,168,50,.5);border:2px solid rgba(0,0,0,.3);}
+
+        /* Buttons */
+        .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 30px;border-radius:100px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;letter-spacing:.04em;cursor:pointer;border:none;transition:all .22s ease;}
+        .btn-fill{background:var(--cream);color:#fff;}
+        .btn-fill:hover{background:#2a2420;transform:translateY(-2px);}
+        .btn-outline{background:rgba(26,22,18,0.06);color:var(--cream);border:1px solid rgba(26,22,18,0.2);}
+        .btn-outline:hover{background:rgba(26,22,18,0.1);transform:translateY(-2px);}
+
+        /* Range inputs */
+        input[type=range]{height:3px;-webkit-appearance:none;background:rgba(180,155,100,0.25);border-radius:2px;outline:none;width:100%;}
+        input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-lt));cursor:pointer;box-shadow:0 0 8px rgba(160,120,50,.4);border:2px solid #fff;}
+
+        /* Swatches */
         .swatch-btn{width:30px;height:30px;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:all .2s;flex-shrink:0;}
-        .swatch-btn.active{border-color:var(--gold-lt);transform:scale(1.15);box-shadow:0 0 12px rgba(201,168,50,.5);}
+        .swatch-btn.active{border-color:var(--gold);transform:scale(1.15);box-shadow:0 0 10px rgba(160,120,50,.4);}
         .mobile-video-showcase{display:none;}
 
-        /* chip selector (Pukka options) */
-        .chip-group{display:flex;flex-wrap:wrap;gap:7px;}
-        .chip{padding:7px 13px;border-radius:7px;border:1px solid rgba(201,168,50,0.22);background:rgba(255,255,255,0.03);color:var(--muted);font-size:12px;cursor:pointer;transition:all .18s;font-family:'DM Sans',sans-serif;}
-        .chip.active{border-color:rgba(201,168,50,0.7);background:rgba(201,168,50,0.12);color:var(--gold-lt);font-weight:600;}
-        .chip:hover:not(.active){border-color:rgba(201,168,50,0.4);color:var(--cream);}
+        /* Chips */
+        .chip-group{display:flex;flex-wrap:wrap;gap:6px;}
+        .chip{padding:6px 12px;border-radius:6px;border:1px solid var(--border);background:#fff;color:var(--muted);font-size:12px;cursor:pointer;transition:all .18s;font-family:'DM Sans',sans-serif;}
+        .chip.active{border-color:var(--gold);background:rgba(180,145,60,0.08);color:var(--gold-lt);font-weight:600;}
+        .chip:hover:not(.active){border-color:rgba(180,145,60,0.5);color:var(--cream);}
 
-        /* section label */
-        .sec-label{font-size:11px;color:var(--gold);letter-spacing:.22em;text-transform:uppercase;font-weight:600;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
-        .sec-label span{font-size:13px;color:var(--cream);font-weight:500;letter-spacing:.03em;text-transform:none;}
-        .divider{height:1px;background:linear-gradient(90deg,transparent,oklch(74% 0.12 78 / 0.12),transparent);flex-shrink:0;}
+        /* Section labels */
+        .sec-label{font-size:10px;color:var(--gold);letter-spacing:.22em;text-transform:uppercase;font-weight:700;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;}
+        .sec-label span{font-size:12px;color:var(--cream);font-weight:600;letter-spacing:.03em;text-transform:none;}
+        .divider{height:1px;background:linear-gradient(90deg,transparent,rgba(180,145,60,0.2),transparent);flex-shrink:0;}
 
-        /* brand */
+        /* Brand */
         .brand-right{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;text-align:center;min-width:132px;}
-        .brand-logo{width:86px;height:86px;object-fit:cover;border-radius:50%;background:#f3f3f3;border:1px solid rgba(255,255,255,.18);box-shadow:0 12px 34px rgba(0,0,0,.34),0 0 24px rgba(201,168,50,.08);}
-        .brand-caption{font-size:12px;line-height:1.15;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);white-space:nowrap;}
+        .brand-logo{width:86px;height:86px;object-fit:cover;border-radius:50%;border:2px solid rgba(180,145,60,0.3);box-shadow:0 8px 24px rgba(0,0,0,.1);}
+        .brand-caption{font-size:11px;line-height:1.2;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap;}
 
-        /* camera */
+        /* Camera */
         .camera-screen{flex:1;height:calc(100svh - 112px);min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:16px 20px;background:var(--bg);overflow:hidden;}
-        .camera-frame{position:relative;border-radius:16px;overflow:hidden;border:1px solid oklch(74% 0.12 78 / 0.2);background:#000;flex-shrink:1;}
+        .camera-frame{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--border);background:#000;flex-shrink:1;}
         .camera-frame video{width:100%;height:auto;display:block;object-fit:cover;background:#000;}
-        .hand-box{position:absolute;border:2px solid var(--gold);border-radius:8px;pointer-events:none;box-shadow:0 0 0 9999px rgba(0,0,0,0.45);}
-        .camera-shot-button{width:64px;height:64px;border-radius:50%;border:3px solid rgba(0,0,0,.3);font-size:26px;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;}
+        .hand-box{position:absolute;border:2px solid var(--gold);border-radius:8px;pointer-events:none;box-shadow:0 0 0 9999px rgba(0,0,0,0.5);}
+        .camera-shot-button{width:64px;height:64px;border-radius:50%;border:3px solid rgba(255,255,255,.3);font-size:26px;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;}
 
-        /* ── TRY-ON: narrow photo (just the hand), wide controls ── */
-        .tryon-layout{display:grid;grid-template-columns:280px 1fr;flex:1;overflow:hidden;height:calc(100svh - 112px);min-height:0;}
-        .tryon-left{position:relative;overflow:hidden;background:#000;display:flex;align-items:center;justify-content:center;min-height:0;}
+        /* TRY-ON layout: ~40% preview, 60% controls, NO scroll */
+        .tryon-layout{display:grid;grid-template-columns:38% 1fr;overflow:hidden;height:calc(100svh - 112px);min-height:0;}
+        .tryon-left{position:relative;overflow:hidden;background:#f5f3f0;display:flex;align-items:center;justify-content:center;min-height:0;}
         .tryon-photo{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;user-select:none;}
-        .tryon-right{overflow-y:auto;background:oklch(8% 0.008 270);border-left:1px solid oklch(74% 0.12 78 / 0.1);display:flex;flex-direction:column;padding:20px 26px 20px;gap:14px;min-height:0;}
+        /* Right panel: NO overflow-y scroll — everything must fit */
+        .tryon-right{overflow:hidden;background:var(--bg2);border-left:1px solid var(--border);display:flex;flex-direction:column;padding:14px 20px 12px;gap:10px;min-height:0;}
 
-        /* multi-ring */
+        /* Multi-ring */
         .multi-check-wrap{display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none;}
         .multi-check-wrap input[type=checkbox]{width:15px;height:15px;accent-color:var(--gold);cursor:pointer;}
-        .multi-check-label{font-size:13px;font-weight:600;color:var(--gold);letter-spacing:.08em;}
-        .delete-ring-btn{padding:7px 16px;border-radius:999px;border:1px solid oklch(74% 0.12 78 / 0.28);background:rgba(255,255,255,0.03);color:var(--cream);font-size:12px;font-weight:600;letter-spacing:.06em;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
-        .delete-ring-btn:hover:not(:disabled){background:rgba(201,168,50,0.1);color:var(--gold-lt);}
+        .multi-check-label{font-size:13px;font-weight:600;color:var(--gold);letter-spacing:.06em;}
+        .delete-ring-btn{padding:6px 14px;border-radius:999px;border:1px solid var(--border);background:#fff;color:var(--cream);font-size:11px;font-weight:600;cursor:pointer;font-family:'DM Sans';transition:all .2s;}
+        .delete-ring-btn:hover:not(:disabled){background:rgba(180,145,60,0.1);color:var(--gold-lt);}
         .delete-ring-btn:disabled{opacity:.3;cursor:not-allowed;}
 
-        /* ring size estimator */
-        .size-estimate{background:rgba(201,168,50,0.08);border:1px solid rgba(201,168,50,0.25);border-radius:10px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
-        .size-est-label{font-size:12px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;}
-        .size-est-sub{font-size:11px;color:rgba(201,168,50,0.45);margin-top:3px;}
-        .size-est-value{font-size:28px;font-weight:700;color:var(--gold-lt);font-family:'Instrument Serif',serif;flex-shrink:0;}
-        .size-manual-label{font-size:13px;color:var(--muted);margin-bottom:7px;letter-spacing:.04em;}
-        .size-manual-select{background:oklch(13% 0.01 270);color:var(--cream);border:1px solid oklch(74% 0.12 78 / 0.2);border-radius:8px;padding:10px 13px;font-size:13px;font-family:'DM Sans',sans-serif;cursor:pointer;outline:none;width:100%;}
-        .size-manual-select:focus{border-color:oklch(74% 0.12 78 / 0.5);}
+        /* Ring size */
+        .size-estimate{background:rgba(180,145,60,0.07);border:1px solid rgba(180,145,60,0.25);border-radius:8px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:8px;}
+        .size-est-label{font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;}
+        .size-est-sub{font-size:10px;color:rgba(180,145,60,0.6);margin-top:2px;}
+        .size-est-value{font-size:26px;font-weight:700;color:var(--gold);font-family:'Instrument Serif',serif;flex-shrink:0;}
+        .size-manual-label{font-size:12px;color:var(--muted);margin-bottom:5px;letter-spacing:.03em;}
+        .size-manual-select{background:#fff;color:var(--cream);border:1px solid var(--border);border-radius:7px;padding:8px 11px;font-size:12px;font-family:'DM Sans';cursor:pointer;outline:none;width:100%;}
+        .size-manual-select:focus{border-color:var(--gold);}
 
-        /* slider rows — each on its own full-width row */
-        .slider-row{display:flex;flex-direction:column;gap:7px;width:100%;}
+        /* Slider rows — full width */
+        .slider-row{display:flex;flex-direction:column;gap:5px;width:100%;}
 
-        /* action buttons */
-        .action-add{width:100%;padding:16px;border-radius:12px;border:none;color:#08070a;font-size:15px;letter-spacing:.1em;font-weight:800;cursor:pointer;font-family:'DM Sans';display:flex;align-items:center;justify-content:center;gap:10px;transition:all .3s;}
-        .action-save{width:100%;padding:14px;border-radius:12px;font-size:14px;letter-spacing:.1em;font-weight:600;cursor:pointer;font-family:'DM Sans';display:flex;align-items:center;justify-content:center;gap:10px;transition:all .3s;}
+        /* Action buttons */
+        .action-add{width:100%;padding:14px;border-radius:10px;border:none;color:#fff;font-size:14px;letter-spacing:.08em;font-weight:800;cursor:pointer;font-family:'DM Sans';display:flex;align-items:center;justify-content:center;gap:10px;transition:all .3s;}
+        .action-save{width:100%;padding:12px;border-radius:10px;font-size:13px;letter-spacing:.08em;font-weight:600;cursor:pointer;font-family:'DM Sans';display:flex;align-items:center;justify-content:center;gap:10px;transition:all .3s;border:1.5px solid var(--border);}
 
-        /* mobile: narrow photo strip, wide scrollable controls */
+        /* Mobile */
         @media (max-width:768px){
           .desktop-only{display:none !important;}
           .cards-stack{display:none !important;}
@@ -385,53 +401,38 @@ export default function RingTryOn() {
           .mobile-video-card{flex:0 0 100%;width:100%;height:430px;scroll-snap-align:start;scroll-snap-stop:always;}
           .camera-screen{height:calc(100svh - 80px) !important;padding:10px 14px !important;gap:10px !important;justify-content:flex-start !important;}
           .camera-shot-button{width:52px !important;height:52px !important;font-size:20px !important;}
-
-          /* narrow photo strip (hand only), rest is controls */
-          .tryon-layout{
-            grid-template-columns: 110px 1fr !important;
-            height:calc(100svh - 80px) !important;
-            overflow:hidden !important;
-            gap:5px !important;
-            padding:7px 8px 7px 7px !important;
-          }
-          .tryon-left{border-radius:10px !important;overflow:hidden !important;background:#000 !important;}
-          .tryon-right{
-            border-radius:10px !important;
-            border:1px solid oklch(74% 0.12 78 / 0.14) !important;
-            padding:10px 12px 12px !important;
-            gap:9px !important;
-            background:oklch(10% 0.008 270) !important;
-            overflow-y:auto !important;
-          }
-          /* readable mobile sizes */
-          .tryon-right .sec-label{font-size:9px !important;letter-spacing:.14em !important;margin-bottom:5px !important;}
-          .tryon-right .sec-label span{font-size:11px !important;}
-          .tryon-right .chip{font-size:10px !important;padding:5px 9px !important;}
-          .tryon-right .chip-group{gap:5px !important;}
-          .tryon-right .swatch-btn{width:22px !important;height:22px !important;}
-          .tryon-right .ring-grid{gap:4px !important;}
-          .tryon-right .ring-grid button{padding:4px 2px !important;border-radius:6px !important;}
-          .tryon-right .ring-grid-thumb{width:32px !important;height:20px !important;}
-          .tryon-right .ring-grid-label{font-size:7.5px !important;}
-          .tryon-right .slider-row{gap:5px !important;}
-          .tryon-right .size-estimate{padding:8px 10px !important;}
-          .tryon-right .size-est-label{font-size:10px !important;}
-          .tryon-right .size-est-sub{font-size:9px !important;}
-          .tryon-right .size-est-value{font-size:20px !important;}
-          .tryon-right .size-manual-label{font-size:11px !important;}
-          .tryon-right .size-manual-select{font-size:11px !important;padding:8px 9px !important;}
-          .tryon-right .multi-check-label{font-size:11px !important;}
-          .tryon-right .delete-ring-btn{font-size:10px !important;padding:5px 10px !important;}
-          .tryon-right .action-add{padding:12px 6px !important;font-size:11px !important;border-radius:9px !important;}
-          .tryon-right .action-save{padding:10px 6px !important;font-size:11px !important;border-radius:9px !important;}
-          .tryon-right .serif{font-size:13px !important;line-height:1.1 !important;}
-          input[type=range]{height:3px !important;}
-          input[type=range]::-webkit-slider-thumb{width:16px !important;height:16px !important;}
+          /* Mobile tryon: ~38% preview, rest controls, no scroll */
+          .tryon-layout{grid-template-columns:38% 1fr !important;height:calc(100svh - 80px) !important;overflow:hidden !important;gap:0 !important;}
+          .tryon-left{background:#f5f3f0 !important;}
+          .tryon-right{border-left:1px solid var(--border) !important;padding:8px 10px 8px !important;gap:6px !important;background:var(--bg2) !important;overflow:hidden !important;}
+          .tryon-right .sec-label{font-size:8px !important;letter-spacing:.12em !important;margin-bottom:4px !important;}
+          .tryon-right .sec-label span{font-size:10px !important;}
+          .tryon-right .chip{font-size:9px !important;padding:4px 8px !important;}
+          .tryon-right .chip-group{gap:4px !important;}
+          .tryon-right .swatch-btn{width:20px !important;height:20px !important;}
+          .tryon-right .ring-grid{gap:3px !important;}
+          .tryon-right .ring-grid button{padding:3px 2px !important;border-radius:5px !important;}
+          .tryon-right .ring-grid-thumb{width:28px !important;height:18px !important;}
+          .tryon-right .ring-grid-label{font-size:6.5px !important;}
+          .tryon-right .slider-row{gap:3px !important;}
+          .tryon-right .size-estimate{padding:6px 8px !important;}
+          .tryon-right .size-est-label{font-size:9px !important;}
+          .tryon-right .size-est-sub{font-size:8px !important;}
+          .tryon-right .size-est-value{font-size:16px !important;}
+          .tryon-right .size-manual-label{font-size:9px !important;margin-bottom:3px !important;}
+          .tryon-right .size-manual-select{font-size:10px !important;padding:5px 7px !important;}
+          .tryon-right .multi-check-label{font-size:10px !important;}
+          .tryon-right .delete-ring-btn{font-size:9px !important;padding:4px 9px !important;}
+          .tryon-right .action-add{padding:9px 4px !important;font-size:10px !important;border-radius:7px !important;gap:5px !important;}
+          .tryon-right .action-save{padding:8px 4px !important;font-size:10px !important;border-radius:7px !important;gap:5px !important;}
+          .tryon-right .serif{font-size:12px !important;line-height:1.1 !important;}
+          input[type=range]{height:2px !important;}
+          input[type=range]::-webkit-slider-thumb{width:14px !important;height:14px !important;}
         }
         @media (min-width:769px){.mobile-only{display:none !important;}}
         @media (min-width:769px) and (max-height:800px){
           .tryon-layout{height:calc(100svh - 100px);}
-          .tryon-right{padding:14px 22px;gap:11px;}
+          .tryon-right{padding:10px 18px;gap:8px;}
           .brand-logo{width:72px;height:72px;}
         }
       `}</style>
@@ -439,13 +440,13 @@ export default function RingTryOn() {
       <div style={{minHeight:'100svh',background:'var(--bg)',display:'flex',flexDirection:'column',overflowX:'hidden'}}>
 
         {/* NAV */}
-        <nav style={{position:'relative',zIndex:50,minHeight:112,padding:'12px 40px',display:'flex',alignItems:'center',justifyContent:'space-between',borderBottom:'1px solid oklch(74% 0.12 78 / 0.1)',flexShrink:0}}>
-          <div className="serif" style={{fontSize:50,letterSpacing:'.08em',color:'var(--gold-lt)',lineHeight:1}}>Lumière</div>
+        <nav style={{position:'relative',zIndex:50,minHeight:112,padding:'12px 40px',display:'flex',alignItems:'center',justifyContent:'space-between',borderBottom:'1px solid var(--border)',flexShrink:0,background:'#fff'}}>
+          <div className="serif" style={{fontSize:50,letterSpacing:'.08em',color:'var(--gold)',lineHeight:1}}>Lumière</div>
           <div style={{display:'flex',alignItems:'center',gap:12}}>
             {phase==='tryOn' && <button onClick={()=>{stopCamera();setPhase('intro');setPhoto(null);setCroppedPhoto(null)}} className="btn btn-outline" style={{padding:'10px 20px',fontSize:13}}>← Retake</button>}
             <div className="brand-right">
               <img src={NEXTGENIQ_LOGO} alt="NextGenIQ.AI" className="brand-logo"/>
-              <div className="brand-caption" style={{fontSize:12,color:'var(--gold-lt)'}}>A NextGenIQ.AI Product</div>
+              <div className="brand-caption" style={{color:'var(--muted)'}}>A NextGenIQ.AI Product</div>
             </div>
           </div>
         </nav>
@@ -462,20 +463,20 @@ export default function RingTryOn() {
               ))}
             </div>
             <div style={{position:'absolute',inset:0,pointerEvents:'none',zIndex:0}}>
-              <div style={{position:'absolute',top:'10%',left:'30%',width:600,height:600,background:'radial-gradient(ellipse, oklch(74% 0.12 78 / 0.07) 0%, transparent 70%)',borderRadius:'50%'}}/>
+              <div style={{position:'absolute',top:'10%',left:'30%',width:600,height:600,background:'radial-gradient(ellipse, rgba(180,145,60,0.05) 0%, transparent 70%)',borderRadius:'50%'}}/>
             </div>
             <div className="intro-grid" style={{position:'relative',zIndex:5,display:'grid',gridTemplateColumns:'0.85fr 1.15fr',alignItems:'center',padding:'0 56px 40px',gap:48,minHeight:'calc(100vh - 88px)'}}>
               <div className="intro-copy" style={{display:'flex',flexDirection:'column',gap:28,minWidth:0,width:'100%'}}>
-                <div style={{fontSize:14,color:'var(--gold-lt)',letterSpacing:'.06em',fontWeight:300,animation:'fadeUp .6s ease both'}}>
+                <div style={{fontSize:14,color:'var(--gold)',letterSpacing:'.06em',fontWeight:400,animation:'fadeUp .6s ease both'}}>
                   Designed and Developed for Pukka Berlin
                 </div>
                 <div style={{display:'inline-flex',alignItems:'center',gap:14,animation:'fadeUp .8s .1s ease both'}}>
                   <div style={{width:36,height:1.5,background:'var(--gold)',flexShrink:0}}/>
-                  <div style={{fontSize:14,letterSpacing:'.22em',textTransform:'uppercase',color:'var(--gold)',fontWeight:500,whiteSpace:'nowrap'}}>Virtual Try Before You Buy</div>
+                  <div style={{fontSize:13,letterSpacing:'.22em',textTransform:'uppercase',color:'var(--gold)',fontWeight:600,whiteSpace:'nowrap'}}>Virtual Try Before You Buy</div>
                   <div style={{width:36,height:1.5,background:'var(--gold)',flexShrink:0}}/>
                 </div>
-                <h1 className="serif" style={{fontSize:'clamp(48px,5vw,76px)',lineHeight:1.06,letterSpacing:'-.02em',animation:'fadeUp 1s .22s ease both',whiteSpace:'nowrap'}}>
-                  Virtual Wear <em style={{color:'var(--gold-lt)'}}>the Ring</em>
+                <h1 className="serif" style={{fontSize:'clamp(42px,4.5vw,68px)',lineHeight:1.06,letterSpacing:'-.02em',animation:'fadeUp 1s .22s ease both',whiteSpace:'nowrap',color:'var(--cream)'}}>
+                  Virtual Wear <em style={{color:'var(--gold)'}}>the Ring</em>
                 </h1>
                 <div className="mobile-actions" style={{display:'flex',gap:14,flexWrap:'wrap',animation:'fadeUp 1s .52s ease both'}}>
                   <button onClick={startCamera} className="btn btn-fill">
@@ -490,9 +491,9 @@ export default function RingTryOn() {
                 </div>
                 <div style={{display:'flex',alignItems:'center',gap:16,animation:'fadeUp 1s .66s ease both'}}>
                   <div style={{display:'flex'}}>
-                    {['#c89068','#b8988c','#d49868','#e8c09c'].map((c,i) => <div key={i} style={{width:28,height:28,borderRadius:'50%',background:`linear-gradient(135deg,${c},${c}88)`,border:'2px solid var(--bg)',marginLeft:i===0?0:-7}}/>)}
+                    {['#c89068','#b8988c','#d49868','#e8c09c'].map((c,i) => <div key={i} style={{width:28,height:28,borderRadius:'50%',background:`linear-gradient(135deg,${c},${c}88)`,border:'2px solid #fff',marginLeft:i===0?0:-7}}/>)}
                   </div>
-                  <p style={{fontSize:13,color:'var(--muted)',fontWeight:300}}><strong style={{color:'var(--cream)',fontWeight:400}}>48,200+</strong> try-ons today</p>
+                  <p style={{fontSize:13,color:'var(--muted)',fontWeight:300}}><strong style={{color:'var(--cream)',fontWeight:500}}>48,200+</strong> try-ons today</p>
                 </div>
                 <div ref={mobileShowcaseRef} className="mobile-video-showcase">
                   {testimonials.map((t,i) => (
@@ -546,7 +547,7 @@ export default function RingTryOn() {
         {/* CAMERA — with hand guide box */}
         {phase==='camera' && (
           <div className="camera-screen">
-            <p style={{fontSize:13,letterSpacing:'.2em',color:'var(--gold-lt)',textTransform:'uppercase',flexShrink:0}}>Place your hand inside the box</p>
+            <p style={{fontSize:13,letterSpacing:'.2em',color:'var(--gold)',textTransform:'uppercase',flexShrink:0}}>Place your hand inside the box</p>
             <div className="camera-frame" style={{width:'100%',maxWidth:580,maxHeight:'calc(100svh - 260px)'}}>
               <video ref={videoRef} style={{width:'100%',height:'auto',maxHeight:'calc(100svh - 260px)',objectFit:'cover',background:'#000'}} playsInline muted/>
               {/* Hand guide box — matches the CROP area */}
@@ -613,9 +614,9 @@ export default function RingTryOn() {
                 {/* Header */}
                 <div style={{flexShrink:0}}>
                   <div style={{fontSize:10,color:'var(--gold)',letterSpacing:'.25em',textTransform:'uppercase',marginBottom:3}}>Selected Ring</div>
-                  <h2 className="serif" style={{fontSize:19,fontWeight:300,lineHeight:1.15,marginBottom:2}}>{selectedRing.name}</h2>
+                  <h2 className="serif" style={{fontSize:19,fontWeight:400,lineHeight:1.15,marginBottom:2,color:'var(--cream)'}}>{selectedRing.name}</h2>
                   <div style={{fontSize:11,color:'var(--muted)'}}>{selectedRing.description}</div>
-                  <div style={{fontSize:17,color:'var(--gold)',fontWeight:500,marginTop:4}}>${selectedRing.price.toLocaleString()}</div>
+                  <div style={{fontSize:17,color:'var(--gold)',fontWeight:600,marginTop:4}}>${selectedRing.price.toLocaleString()}</div>
                 </div>
 
                 <div className="divider"/>
@@ -735,13 +736,13 @@ export default function RingTryOn() {
 
                 {/* Action buttons */}
                 <div style={{display:'flex',flexDirection:'column',gap:9,flexShrink:0}}>
-                  <button className="action-add" onClick={addToCart} style={{background:addedToCart?'var(--gold-dk)':'linear-gradient(135deg,var(--gold),var(--gold-lt))'}}>
+                  <button className="action-add" onClick={addToCart} style={{background:addedToCart?'var(--gold-dk)':'linear-gradient(135deg,var(--gold-dk),var(--gold))'}}>
                     {addedToCart?'✓ Added to Cart!':(<><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Add to Cart · ${selectedRing.price.toLocaleString()}</>)}
                   </button>
-                  <button className="action-save" onClick={savePhoto} style={{border:'1px solid oklch(74% 0.12 78 / 0.3)',background:photoSaved?'oklch(74% 0.12 78 / 0.1)':'transparent',color:photoSaved?'var(--gold)':'var(--cream)'}}>
+                  <button className="action-save" onClick={savePhoto} style={{background:photoSaved?'rgba(180,145,60,0.08)':'#fff',color:photoSaved?'var(--gold)':'var(--cream)'}}>
                     {photoSaved?'✓ Photo Saved!':(<><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>Save Photo</>)}
                   </button>
-                  <button onClick={()=>{stopCamera();setPhase('intro');setPhoto(null);setCroppedPhoto(null)}} style={{width:'100%',padding:'8px',borderRadius:12,border:'none',background:'transparent',color:'var(--muted)',fontSize:11,cursor:'pointer',fontFamily:'DM Sans',letterSpacing:'.05em'}}>← Try a different photo</button>
+                  <button onClick={()=>{stopCamera();setPhase('intro');setPhoto(null);setCroppedPhoto(null)}} style={{width:'100%',padding:'8px',borderRadius:10,border:'none',background:'transparent',color:'var(--muted)',fontSize:11,cursor:'pointer',fontFamily:'DM Sans',letterSpacing:'.05em'}}>← Try a different photo</button>
                 </div>
                 <div style={{height:8}}/>
               </div>
@@ -751,9 +752,9 @@ export default function RingTryOn() {
 
         {/* CART */}
         {phase==='cart' && (
-          <div style={{flex:1,overflow:'auto',display:'flex',flexDirection:'column'}}>
+          <div style={{flex:1,overflow:'auto',display:'flex',flexDirection:'column',background:'var(--bg)'}}>
             <div style={{maxWidth:640,margin:'0 auto',width:'100%',padding:'28px 20px'}}>
-              <h2 className="serif" style={{fontSize:32,fontWeight:300,marginBottom:24}}>Your Cart</h2>
+              <h2 className="serif" style={{fontSize:32,fontWeight:400,marginBottom:24,color:'var(--cream)'}}>Your Cart</h2>
               {cart.length===0?(
                 <div style={{display:'flex',flexDirection:'column',alignItems:'center',gap:16,color:'var(--muted)',paddingTop:60}}>
                   <p>Your cart is empty</p>
@@ -763,9 +764,9 @@ export default function RingTryOn() {
                 <>
                   <div style={{display:'flex',flexDirection:'column',gap:14,marginBottom:24}}>
                     {cart.map((item,i) => (
-                      <div key={i} style={{padding:'18px',borderRadius:16,background:'oklch(13% 0.008 270)',border:'1px solid oklch(74% 0.12 78 / 0.1)'}}>
+                      <div key={i} style={{padding:'18px',borderRadius:16,background:'#fff',border:'1px solid var(--border)',boxShadow:'0 2px 8px rgba(0,0,0,.04)'}}>
                         <div style={{display:'flex',gap:14,alignItems:'center',marginBottom:12}}>
-                          <img src={item.color.image} alt={item.ring.name} style={{width:80,height:50,objectFit:'contain',filter:'drop-shadow(0 4px 8px rgba(0,0,0,.5))'}}/>
+                          <img src={item.color.image} alt={item.ring.name} style={{width:80,height:50,objectFit:'contain',filter:'drop-shadow(0 2px 8px rgba(0,0,0,.15))'}}/>
                           <div style={{flex:1}}>
                             <div style={{fontSize:14,fontWeight:500,marginBottom:3}}>{item.ring.name}</div>
                             <div style={{display:'flex',alignItems:'center',gap:5,marginBottom:2}}><div style={{width:11,height:11,borderRadius:'50%',background:item.color.swatch}}/><span style={{fontSize:12,color:'var(--muted)'}}>{item.color.label}</span></div>
@@ -804,11 +805,11 @@ export default function RingTryOn() {
 
         {/* CHECKOUT */}
         {phase==='checkout' && (
-          <div style={{flex:1,overflow:'auto',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',padding:32,gap:24}}>
-            <div style={{width:72,height:72,borderRadius:'50%',background:'linear-gradient(135deg,var(--gold),var(--gold-lt))',display:'flex',alignItems:'center',justifyContent:'center',fontSize:32}}>💎</div>
-            <h2 className="serif" style={{fontSize:36,fontWeight:300,textAlign:'center'}}>Secure Checkout</h2>
+          <div style={{flex:1,overflow:'auto',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',padding:32,gap:24,background:'var(--bg)'}}>
+            <div style={{width:72,height:72,borderRadius:'50%',background:'linear-gradient(135deg,var(--gold-dk),var(--gold))',display:'flex',alignItems:'center',justifyContent:'center',fontSize:32}}>💎</div>
+            <h2 className="serif" style={{fontSize:36,fontWeight:400,textAlign:'center',color:'var(--cream)'}}>Secure Checkout</h2>
             <p style={{color:'var(--muted)',fontSize:15,textAlign:'center',maxWidth:380,lineHeight:1.7}}>Our secure checkout is coming soon. In the meantime, contact us directly to complete your purchase.</p>
-            <div style={{width:'100%',maxWidth:480,background:'oklch(13% 0.008 270)',borderRadius:20,padding:28,border:'1px solid oklch(74% 0.12 78 / 0.15)'}}>
+            <div style={{width:'100%',maxWidth:480,background:'#fff',borderRadius:20,padding:28,border:'1px solid var(--border)',boxShadow:'0 4px 20px rgba(0,0,0,.06)'}}>
               <div style={{fontSize:11,color:'var(--gold)',letterSpacing:'.25em',textTransform:'uppercase',marginBottom:16}}>Order Summary</div>
               {cart.map((item,i) => (
                 <div key={i} style={{paddingBottom:14,marginBottom:14,borderBottom:'1px solid rgba(255,255,255,.06)'}}>
