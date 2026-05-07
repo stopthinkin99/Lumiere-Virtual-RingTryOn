@@ -476,7 +476,10 @@ export default function RingTryOn() {
 
         {/* NAV */}
         <nav style={{position:'relative',zIndex:50,minHeight:112,padding:'12px 40px',display:'flex',alignItems:'center',justifyContent:'space-between',borderBottom:'1px solid var(--border)',flexShrink:0,background:'#fff'}}>
-          <div className="serif" style={{fontSize:50,letterSpacing:'.08em',color:'var(--gold)',lineHeight:1}}>Lumière</div>
+          <div className="serif" style={{fontSize:50,letterSpacing:'.08em',color:'var(--gold)',lineHeight:1}}>Lumière9</div>
+          <div className="serif desktop-only" style={{position:'absolute',left:'50%',top:'50%',transform:'translate(-50%,-50%)',fontSize:26,letterSpacing:'.02em',color:'var(--cream)',whiteSpace:'nowrap',pointerEvents:'none'}}>
+            Prototype for Pukka Berlin
+          </div>
           <div style={{display:'flex',alignItems:'center',gap:12}}>
             {phase==='tryOn' && <button onClick={()=>{stopCamera();setPhase('intro');setPhoto(null);setCroppedPhoto(null)}} className="btn btn-outline" style={{padding:'10px 20px',fontSize:13}}>← Retake</button>}
             <div className="brand-right">
@@ -716,7 +719,7 @@ export default function RingTryOn() {
                       </div>
 
                       <div className="control-section">
-                        <div className="sec-label">Customization</div>
+                        <div className="sec-label">Hyper-Personalization</div>
                         <div className="chip-group">
                           {CUSTOMIZATIONS.map(c => <button key={c} onClick={()=>setCustomization(c)} className={`chip ${customization===c?'active':''}`}>{c}</button>)}
                         </div>
