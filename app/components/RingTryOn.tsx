@@ -35,8 +35,8 @@ type CartItem = {
 }
 type Phase = 'intro' | 'camera' | 'tryOn' | 'cart' | 'checkout'
 
-// Hand crop box — fraction of photo dimensions (center square crop showing hand area)
-const CROP = { x: 0.15, y: 0.05, w: 0.70, h: 0.90 }
+// Hand crop box — narrow to just the hand area (no face/background)
+const CROP = { x: 0.28, y: 0.02, w: 0.44, h: 0.96 }
 
 export default function RingTryOn() {
   const [phase, setPhase] = useState<Phase>('intro')
@@ -316,14 +316,14 @@ export default function RingTryOn() {
         .mobile-video-showcase{display:none;}
 
         /* chip selector (Pukka options) */
-        .chip-group{display:flex;flex-wrap:wrap;gap:6px;}
-        .chip{padding:5px 11px;border-radius:6px;border:1px solid rgba(201,168,50,0.22);background:rgba(255,255,255,0.03);color:var(--muted);font-size:11px;cursor:pointer;transition:all .18s;font-family:'DM Sans',sans-serif;}
+        .chip-group{display:flex;flex-wrap:wrap;gap:7px;}
+        .chip{padding:7px 13px;border-radius:7px;border:1px solid rgba(201,168,50,0.22);background:rgba(255,255,255,0.03);color:var(--muted);font-size:12px;cursor:pointer;transition:all .18s;font-family:'DM Sans',sans-serif;}
         .chip.active{border-color:rgba(201,168,50,0.7);background:rgba(201,168,50,0.12);color:var(--gold-lt);font-weight:600;}
         .chip:hover:not(.active){border-color:rgba(201,168,50,0.4);color:var(--cream);}
 
         /* section label */
-        .sec-label{font-size:9px;color:var(--gold);letter-spacing:.28em;text-transform:uppercase;font-weight:600;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;}
-        .sec-label span{font-size:11px;color:var(--cream);font-weight:400;letter-spacing:.04em;text-transform:none;}
+        .sec-label{font-size:11px;color:var(--gold);letter-spacing:.22em;text-transform:uppercase;font-weight:600;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
+        .sec-label span{font-size:13px;color:var(--cream);font-weight:500;letter-spacing:.03em;text-transform:none;}
         .divider{height:1px;background:linear-gradient(90deg,transparent,oklch(74% 0.12 78 / 0.12),transparent);flex-shrink:0;}
 
         /* brand */
@@ -335,37 +335,40 @@ export default function RingTryOn() {
         .camera-screen{flex:1;height:calc(100svh - 112px);min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:16px 20px;background:var(--bg);overflow:hidden;}
         .camera-frame{position:relative;border-radius:16px;overflow:hidden;border:1px solid oklch(74% 0.12 78 / 0.2);background:#000;flex-shrink:1;}
         .camera-frame video{width:100%;height:auto;display:block;object-fit:cover;background:#000;}
-        /* square crop guide overlay */
         .hand-box{position:absolute;border:2px solid var(--gold);border-radius:8px;pointer-events:none;box-shadow:0 0 0 9999px rgba(0,0,0,0.45);}
         .camera-shot-button{width:64px;height:64px;border-radius:50%;border:3px solid rgba(0,0,0,.3);font-size:26px;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;}
 
-        /* ── TRY-ON: narrower preview, wider controls ── */
-        .tryon-layout{display:grid;grid-template-columns:minmax(0,1fr) 520px;flex:1;overflow:hidden;height:calc(100svh - 112px);min-height:0;}
-        .tryon-left{position:relative;overflow:hidden;background:#1a1a1a;display:flex;align-items:center;justify-content:center;min-height:0;}
-        /* cropped photo shown as a contained square-ish image */
-        .tryon-photo{width:100%;height:100%;object-fit:contain;display:block;pointer-events:none;user-select:none;}
-        .tryon-right{overflow-y:auto;background:oklch(8% 0.008 270);border-left:1px solid oklch(74% 0.12 78 / 0.1);display:flex;flex-direction:column;padding:18px 20px 20px;gap:13px;min-height:0;}
+        /* ── TRY-ON: narrow photo (just the hand), wide controls ── */
+        .tryon-layout{display:grid;grid-template-columns:280px 1fr;flex:1;overflow:hidden;height:calc(100svh - 112px);min-height:0;}
+        .tryon-left{position:relative;overflow:hidden;background:#000;display:flex;align-items:center;justify-content:center;min-height:0;}
+        .tryon-photo{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;user-select:none;}
+        .tryon-right{overflow-y:auto;background:oklch(8% 0.008 270);border-left:1px solid oklch(74% 0.12 78 / 0.1);display:flex;flex-direction:column;padding:20px 26px 20px;gap:14px;min-height:0;}
 
         /* multi-ring */
         .multi-check-wrap{display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none;}
-        .multi-check-wrap input[type=checkbox]{width:14px;height:14px;accent-color:var(--gold);cursor:pointer;}
-        .multi-check-label{font-size:11px;font-weight:600;color:var(--gold);letter-spacing:.08em;}
-        .delete-ring-btn{padding:6px 14px;border-radius:999px;border:1px solid oklch(74% 0.12 78 / 0.28);background:rgba(255,255,255,0.03);color:var(--cream);font-size:11px;font-weight:600;letter-spacing:.06em;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
+        .multi-check-wrap input[type=checkbox]{width:15px;height:15px;accent-color:var(--gold);cursor:pointer;}
+        .multi-check-label{font-size:13px;font-weight:600;color:var(--gold);letter-spacing:.08em;}
+        .delete-ring-btn{padding:7px 16px;border-radius:999px;border:1px solid oklch(74% 0.12 78 / 0.28);background:rgba(255,255,255,0.03);color:var(--cream);font-size:12px;font-weight:600;letter-spacing:.06em;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
         .delete-ring-btn:hover:not(:disabled){background:rgba(201,168,50,0.1);color:var(--gold-lt);}
         .delete-ring-btn:disabled{opacity:.3;cursor:not-allowed;}
 
         /* ring size estimator */
-        .size-estimate{background:rgba(201,168,50,0.08);border:1px solid rgba(201,168,50,0.25);border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:8px;}
-        .size-est-label{font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;}
-        .size-est-value{font-size:18px;font-weight:700;color:var(--gold-lt);font-family:'Instrument Serif',serif;}
-        .size-manual-select{background:oklch(13% 0.01 270);color:var(--cream);border:1px solid oklch(74% 0.12 78 / 0.2);border-radius:8px;padding:7px 10px;font-size:12px;font-family:'DM Sans',sans-serif;cursor:pointer;outline:none;width:100%;}
+        .size-estimate{background:rgba(201,168,50,0.08);border:1px solid rgba(201,168,50,0.25);border-radius:10px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+        .size-est-label{font-size:12px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;}
+        .size-est-sub{font-size:11px;color:rgba(201,168,50,0.45);margin-top:3px;}
+        .size-est-value{font-size:28px;font-weight:700;color:var(--gold-lt);font-family:'Instrument Serif',serif;flex-shrink:0;}
+        .size-manual-label{font-size:13px;color:var(--muted);margin-bottom:7px;letter-spacing:.04em;}
+        .size-manual-select{background:oklch(13% 0.01 270);color:var(--cream);border:1px solid oklch(74% 0.12 78 / 0.2);border-radius:8px;padding:10px 13px;font-size:13px;font-family:'DM Sans',sans-serif;cursor:pointer;outline:none;width:100%;}
         .size-manual-select:focus{border-color:oklch(74% 0.12 78 / 0.5);}
 
-        /* action buttons */
-        .action-add{width:100%;padding:15px;border-radius:12px;border:none;color:#08070a;font-size:14px;letter-spacing:.1em;font-weight:800;cursor:pointer;font-family:'DM Sans';display:flex;align-items:center;justify-content:center;gap:10px;transition:all .3s;}
-        .action-save{width:100%;padding:13px;border-radius:12px;font-size:14px;letter-spacing:.1em;font-weight:600;cursor:pointer;font-family:'DM Sans';display:flex;align-items:center;justify-content:center;gap:10px;transition:all .3s;}
+        /* slider rows — each on its own full-width row */
+        .slider-row{display:flex;flex-direction:column;gap:7px;width:100%;}
 
-        /* mobile */
+        /* action buttons */
+        .action-add{width:100%;padding:16px;border-radius:12px;border:none;color:#08070a;font-size:15px;letter-spacing:.1em;font-weight:800;cursor:pointer;font-family:'DM Sans';display:flex;align-items:center;justify-content:center;gap:10px;transition:all .3s;}
+        .action-save{width:100%;padding:14px;border-radius:12px;font-size:14px;letter-spacing:.1em;font-weight:600;cursor:pointer;font-family:'DM Sans';display:flex;align-items:center;justify-content:center;gap:10px;transition:all .3s;}
+
+        /* mobile: narrow photo strip, wide scrollable controls */
         @media (max-width:768px){
           .desktop-only{display:none !important;}
           .cards-stack{display:none !important;}
@@ -382,32 +385,53 @@ export default function RingTryOn() {
           .mobile-video-card{flex:0 0 100%;width:100%;height:430px;scroll-snap-align:start;scroll-snap-stop:always;}
           .camera-screen{height:calc(100svh - 80px) !important;padding:10px 14px !important;gap:10px !important;justify-content:flex-start !important;}
           .camera-shot-button{width:52px !important;height:52px !important;font-size:20px !important;}
-          .tryon-layout{grid-template-columns:minmax(0,1fr) minmax(0,48%) !important;height:calc(100svh - 80px) !important;gap:6px !important;padding:8px 10px 8px 8px !important;}
-          .tryon-left{border-radius:12px !important;background:#1a1a1a !important;}
-          .tryon-right{border-radius:12px !important;border:1px solid oklch(74% 0.12 78 / 0.14) !important;padding:8px !important;gap:6px !important;background:oklch(10% 0.008 270) !important;font-size:10px !important;}
-          .tryon-right .sec-label{font-size:6px !important;margin-bottom:3px !important;}
-          .tryon-right .sec-label span{font-size:8px !important;}
-          .tryon-right .swatch-btn{width:18px !important;height:18px !important;}
-          .tryon-right .chip{font-size:8px !important;padding:3px 7px !important;}
-          .tryon-right .ring-grid{gap:3px !important;}
-          .tryon-right .ring-grid button{padding:3px 2px !important;border-radius:6px !important;}
-          .tryon-right .ring-grid-thumb{width:28px !important;height:18px !important;}
-          .tryon-right .ring-grid-label{font-size:6px !important;}
-          .tryon-right .size-estimate{padding:6px 8px !important;}
-          .tryon-right .size-est-value{font-size:13px !important;}
-          .tryon-right .size-est-label{font-size:7px !important;}
-          .tryon-right .action-add{padding:10px 4px !important;font-size:9px !important;border-radius:8px !important;gap:5px !important;}
-          .tryon-right .action-save{padding:9px 4px !important;font-size:9px !important;border-radius:8px !important;gap:5px !important;}
-          .tryon-right .multi-check-label{font-size:8px !important;}
-          .tryon-right .delete-ring-btn{font-size:8px !important;padding:4px 8px !important;}
-          .tryon-right .size-manual-select{font-size:9px !important;padding:5px 6px !important;}
-          input[type=range]{height:2px !important;}
-          input[type=range]::-webkit-slider-thumb{width:14px !important;height:14px !important;}
+
+          /* narrow photo strip (hand only), rest is controls */
+          .tryon-layout{
+            grid-template-columns: 110px 1fr !important;
+            height:calc(100svh - 80px) !important;
+            overflow:hidden !important;
+            gap:5px !important;
+            padding:7px 8px 7px 7px !important;
+          }
+          .tryon-left{border-radius:10px !important;overflow:hidden !important;background:#000 !important;}
+          .tryon-right{
+            border-radius:10px !important;
+            border:1px solid oklch(74% 0.12 78 / 0.14) !important;
+            padding:10px 12px 12px !important;
+            gap:9px !important;
+            background:oklch(10% 0.008 270) !important;
+            overflow-y:auto !important;
+          }
+          /* readable mobile sizes */
+          .tryon-right .sec-label{font-size:9px !important;letter-spacing:.14em !important;margin-bottom:5px !important;}
+          .tryon-right .sec-label span{font-size:11px !important;}
+          .tryon-right .chip{font-size:10px !important;padding:5px 9px !important;}
+          .tryon-right .chip-group{gap:5px !important;}
+          .tryon-right .swatch-btn{width:22px !important;height:22px !important;}
+          .tryon-right .ring-grid{gap:4px !important;}
+          .tryon-right .ring-grid button{padding:4px 2px !important;border-radius:6px !important;}
+          .tryon-right .ring-grid-thumb{width:32px !important;height:20px !important;}
+          .tryon-right .ring-grid-label{font-size:7.5px !important;}
+          .tryon-right .slider-row{gap:5px !important;}
+          .tryon-right .size-estimate{padding:8px 10px !important;}
+          .tryon-right .size-est-label{font-size:10px !important;}
+          .tryon-right .size-est-sub{font-size:9px !important;}
+          .tryon-right .size-est-value{font-size:20px !important;}
+          .tryon-right .size-manual-label{font-size:11px !important;}
+          .tryon-right .size-manual-select{font-size:11px !important;padding:8px 9px !important;}
+          .tryon-right .multi-check-label{font-size:11px !important;}
+          .tryon-right .delete-ring-btn{font-size:10px !important;padding:5px 10px !important;}
+          .tryon-right .action-add{padding:12px 6px !important;font-size:11px !important;border-radius:9px !important;}
+          .tryon-right .action-save{padding:10px 6px !important;font-size:11px !important;border-radius:9px !important;}
+          .tryon-right .serif{font-size:13px !important;line-height:1.1 !important;}
+          input[type=range]{height:3px !important;}
+          input[type=range]::-webkit-slider-thumb{width:16px !important;height:16px !important;}
         }
         @media (min-width:769px){.mobile-only{display:none !important;}}
         @media (min-width:769px) and (max-height:800px){
           .tryon-layout{height:calc(100svh - 100px);}
-          .tryon-right{padding:14px 18px;gap:10px;}
+          .tryon-right{padding:14px 22px;gap:11px;}
           .brand-logo{width:72px;height:72px;}
         }
       `}</style>
@@ -674,15 +698,15 @@ export default function RingTryOn() {
 
                 <div className="divider"/>
 
-                {/* Size + Rotate sliders */}
-                <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:14,flexShrink:0}}>
-                  <div>
-                    <div className="sec-label">Scale <span>{Math.round(multiMode&&activePlacedRing?activePlacedRing.size:ringSize)}px</span></div>
+                {/* Scale + Rotate — each on its own full-width row */}
+                <div style={{display:'flex',flexDirection:'column',gap:12,flexShrink:0}}>
+                  <div className="slider-row">
+                    <div className="sec-label">Scale the Ring <span>{Math.round(multiMode&&activePlacedRing?activePlacedRing.size:ringSize)}px</span></div>
                     <input type="range" min={20} max={400} value={multiMode&&activePlacedRing?activePlacedRing.size:ringSize}
                       onChange={e=>{if(multiMode&&activePlacedId)setPlacedRings(prev=>prev.map(p=>p.id===activePlacedId?{...p,size:+e.target.value}:p));else setRingSize(+e.target.value)}}/>
                   </div>
-                  <div>
-                    <div className="sec-label">Rotate <span>{Math.round(multiMode&&activePlacedRing?activePlacedRing.rotation:ringRotation)}°</span></div>
+                  <div className="slider-row">
+                    <div className="sec-label">Rotate the Ring <span>{Math.round(multiMode&&activePlacedRing?activePlacedRing.rotation:ringRotation)}°</span></div>
                     <input type="range" min={-180} max={180} value={multiMode&&activePlacedRing?activePlacedRing.rotation:ringRotation}
                       onChange={e=>{if(multiMode&&activePlacedId)setPlacedRings(prev=>prev.map(p=>p.id===activePlacedId?{...p,rotation:+e.target.value}:p));else setRingRotation(+e.target.value)}}/>
                   </div>
@@ -693,16 +717,14 @@ export default function RingTryOn() {
                 {/* Ring Size Estimator */}
                 <div style={{flexShrink:0}}>
                   <div className="sec-label" style={{marginBottom:8}}>Ring Size</div>
-                  {/* Estimated from scale */}
-                  <div className="size-estimate" style={{marginBottom:8}}>
+                  <div className="size-estimate" style={{marginBottom:10}}>
                     <div>
                       <div className="size-est-label">Your approx. ring size</div>
-                      <div style={{fontSize:10,color:'rgba(201,168,50,0.5)',marginTop:2}}>Based on how you've placed & scaled the ring</div>
+                      <div className="size-est-sub">Based on how you've placed & scaled the ring</div>
                     </div>
                     <div className="size-est-value">{approxSize}</div>
                   </div>
-                  {/* Manual override */}
-                  <div style={{fontSize:10,color:'var(--muted)',marginBottom:5,letterSpacing:'.04em'}}>or choose ring size manually:</div>
+                  <div className="size-manual-label">or choose ring size manually:</div>
                   <select className="size-manual-select" value={manualRingSize} onChange={e=>setManualRingSize(e.target.value)}>
                     <option value="">— select size (EU) —</option>
                     {RING_SIZES_EU.map(s => <option key={s} value={s}>{s}</option>)}
