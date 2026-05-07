@@ -331,14 +331,14 @@ export default function RingTryOn() {
         .mobile-video-showcase{display:none;}
 
         /* Chips */
-        .chip-group{display:flex;flex-wrap:wrap;gap:6px;}
-        .chip{padding:6px 12px;border-radius:6px;border:1px solid var(--border);background:#fff;color:var(--muted);font-size:12px;cursor:pointer;transition:all .18s;font-family:'DM Sans',sans-serif;}
+        .chip-group{display:flex;flex-wrap:wrap;gap:5px;}
+        .chip{padding:4px 10px;border-radius:5px;border:1px solid var(--border);background:#fff;color:var(--muted);font-size:11px;cursor:pointer;transition:all .18s;font-family:'DM Sans',sans-serif;}
         .chip.active{border-color:var(--gold);background:rgba(180,145,60,0.08);color:var(--gold-lt);font-weight:600;}
         .chip:hover:not(.active){border-color:rgba(180,145,60,0.5);color:var(--cream);}
 
         /* Section labels */
-        .sec-label{font-size:10px;color:var(--gold);letter-spacing:.22em;text-transform:uppercase;font-weight:700;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;}
-        .sec-label span{font-size:12px;color:var(--cream);font-weight:600;letter-spacing:.03em;text-transform:none;}
+        .sec-label{font-size:9px;color:var(--gold);letter-spacing:.2em;text-transform:uppercase;font-weight:700;margin-bottom:4px;display:flex;justify-content:space-between;align-items:center;}
+        .sec-label span{font-size:11px;color:var(--cream);font-weight:600;letter-spacing:.02em;text-transform:none;}
         .divider{height:1px;background:linear-gradient(90deg,transparent,rgba(180,145,60,0.2),transparent);flex-shrink:0;}
 
         /* Brand */
@@ -360,29 +360,32 @@ export default function RingTryOn() {
         /* Right panel: NO overflow-y scroll — everything must fit */
         .tryon-right{overflow:hidden;background:var(--bg2);border-left:1px solid var(--border);display:flex;flex-direction:column;padding:14px 20px 12px;gap:10px;min-height:0;}
 
+        /* Right panel: fits all content — NO scroll */
+        .tryon-right{overflow:hidden;background:var(--bg2);border-left:1px solid var(--border);display:flex;flex-direction:column;padding:10px 16px 8px;gap:7px;min-height:0;}
+
         /* Multi-ring */
-        .multi-check-wrap{display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none;}
-        .multi-check-wrap input[type=checkbox]{width:15px;height:15px;accent-color:var(--gold);cursor:pointer;}
-        .multi-check-label{font-size:13px;font-weight:600;color:var(--gold);letter-spacing:.06em;}
-        .delete-ring-btn{padding:6px 14px;border-radius:999px;border:1px solid var(--border);background:#fff;color:var(--cream);font-size:11px;font-weight:600;cursor:pointer;font-family:'DM Sans';transition:all .2s;}
+        .multi-check-wrap{display:flex;align-items:center;gap:6px;cursor:pointer;user-select:none;}
+        .multi-check-wrap input[type=checkbox]{width:13px;height:13px;accent-color:var(--gold);cursor:pointer;}
+        .multi-check-label{font-size:12px;font-weight:600;color:var(--gold);letter-spacing:.05em;}
+        .delete-ring-btn{padding:4px 12px;border-radius:999px;border:1px solid var(--border);background:#fff;color:var(--cream);font-size:10px;font-weight:600;cursor:pointer;font-family:'DM Sans';transition:all .2s;}
         .delete-ring-btn:hover:not(:disabled){background:rgba(180,145,60,0.1);color:var(--gold-lt);}
         .delete-ring-btn:disabled{opacity:.3;cursor:not-allowed;}
 
         /* Ring size */
-        .size-estimate{background:rgba(180,145,60,0.07);border:1px solid rgba(180,145,60,0.25);border-radius:8px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:8px;}
-        .size-est-label{font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;}
-        .size-est-sub{font-size:10px;color:rgba(180,145,60,0.6);margin-top:2px;}
-        .size-est-value{font-size:26px;font-weight:700;color:var(--gold);font-family:'Instrument Serif',serif;flex-shrink:0;}
-        .size-manual-label{font-size:12px;color:var(--muted);margin-bottom:5px;letter-spacing:.03em;}
-        .size-manual-select{background:#fff;color:var(--cream);border:1px solid var(--border);border-radius:7px;padding:8px 11px;font-size:12px;font-family:'DM Sans';cursor:pointer;outline:none;width:100%;}
+        .size-estimate{background:rgba(180,145,60,0.07);border:1px solid rgba(180,145,60,0.25);border-radius:7px;padding:7px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px;}
+        .size-est-label{font-size:10px;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;}
+        .size-est-sub{font-size:9px;color:rgba(180,145,60,0.6);margin-top:1px;}
+        .size-est-value{font-size:22px;font-weight:700;color:var(--gold);font-family:'Instrument Serif',serif;flex-shrink:0;}
+        .size-manual-label{font-size:10px;color:var(--muted);margin-bottom:4px;letter-spacing:.03em;}
+        .size-manual-select{background:#fff;color:var(--cream);border:1px solid var(--border);border-radius:6px;padding:6px 9px;font-size:11px;font-family:'DM Sans';cursor:pointer;outline:none;width:100%;}
         .size-manual-select:focus{border-color:var(--gold);}
 
         /* Slider rows — full width */
-        .slider-row{display:flex;flex-direction:column;gap:5px;width:100%;}
+        .slider-row{display:flex;flex-direction:column;gap:4px;width:100%;}
 
         /* Action buttons */
-        .action-add{width:100%;padding:14px;border-radius:10px;border:none;color:#fff;font-size:14px;letter-spacing:.08em;font-weight:800;cursor:pointer;font-family:'DM Sans';display:flex;align-items:center;justify-content:center;gap:10px;transition:all .3s;}
-        .action-save{width:100%;padding:12px;border-radius:10px;font-size:13px;letter-spacing:.08em;font-weight:600;cursor:pointer;font-family:'DM Sans';display:flex;align-items:center;justify-content:center;gap:10px;transition:all .3s;border:1.5px solid var(--border);}
+        .action-add{width:100%;padding:11px;border-radius:9px;border:none;color:#fff;font-size:13px;letter-spacing:.07em;font-weight:800;cursor:pointer;font-family:'DM Sans';display:flex;align-items:center;justify-content:center;gap:8px;transition:all .3s;}
+        .action-save{width:100%;padding:9px;border-radius:9px;font-size:12px;letter-spacing:.07em;font-weight:600;cursor:pointer;font-family:'DM Sans';display:flex;align-items:center;justify-content:center;gap:8px;transition:all .3s;border:1.5px solid var(--border);}
 
         /* Mobile */
         @media (max-width:768px){
