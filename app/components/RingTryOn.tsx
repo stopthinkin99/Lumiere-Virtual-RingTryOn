@@ -331,14 +331,14 @@ export default function RingTryOn() {
         .mobile-video-showcase{display:none;}
 
         /* Chips */
-        .chip-group{display:flex;flex-wrap:wrap;gap:6px;}
-        .chip{padding:6px 12px;border-radius:6px;border:1px solid var(--border);background:#fff;color:var(--muted);font-size:12px;cursor:pointer;transition:all .18s;font-family:'DM Sans',sans-serif;}
+        .chip-group{display:flex;flex-wrap:wrap;gap:5px;}
+        .chip{padding:4px 10px;border-radius:5px;border:1px solid var(--border);background:#fff;color:var(--muted);font-size:11px;cursor:pointer;transition:all .18s;font-family:'DM Sans',sans-serif;}
         .chip.active{border-color:var(--gold);background:rgba(180,145,60,0.08);color:var(--gold-lt);font-weight:600;}
         .chip:hover:not(.active){border-color:rgba(180,145,60,0.5);color:var(--cream);}
 
         /* Section labels */
-        .sec-label{font-size:10px;color:var(--gold);letter-spacing:.22em;text-transform:uppercase;font-weight:700;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;}
-        .sec-label span{font-size:12px;color:var(--cream);font-weight:600;letter-spacing:.03em;text-transform:none;}
+        .sec-label{font-size:9px;color:var(--gold);letter-spacing:.2em;text-transform:uppercase;font-weight:700;margin-bottom:4px;display:flex;justify-content:space-between;align-items:center;}
+        .sec-label span{font-size:11px;color:var(--cream);font-weight:600;letter-spacing:.02em;text-transform:none;}
         .divider{height:1px;background:linear-gradient(90deg,transparent,rgba(180,145,60,0.2),transparent);flex-shrink:0;}
 
         /* Brand */
@@ -353,36 +353,57 @@ export default function RingTryOn() {
         .hand-box{position:absolute;border:2px solid var(--gold);border-radius:8px;pointer-events:none;box-shadow:0 0 0 9999px rgba(0,0,0,0.5);}
         .camera-shot-button{width:64px;height:64px;border-radius:50%;border:3px solid rgba(255,255,255,.3);font-size:26px;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;}
 
-        /* TRY-ON layout: ~40% preview, 60% controls, NO scroll */
-        .tryon-layout{display:grid;grid-template-columns:38% 1fr;overflow:hidden;height:calc(100svh - 112px);min-height:0;}
+        /* TRY-ON layout: right side uses a compact 2-column control board, NO scroll */
+        .tryon-layout{display:grid;grid-template-columns:minmax(420px,38vw) minmax(0,1fr);overflow:hidden;height:calc(100svh - 112px);min-height:0;}
         .tryon-left{position:relative;overflow:hidden;background:#f5f3f0;display:flex;align-items:center;justify-content:center;min-height:0;}
         .tryon-photo{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;user-select:none;}
-        /* Right panel: NO overflow-y scroll — everything must fit */
-        .tryon-right{overflow:hidden;background:var(--bg2);border-left:1px solid var(--border);display:flex;flex-direction:column;padding:14px 20px 12px;gap:10px;min-height:0;}
+        .tryon-right{overflow:hidden;background:var(--bg2);border-left:1px solid var(--border);display:grid;grid-template-rows:auto minmax(0,1fr);padding:12px 18px;gap:10px;min-height:0;}
+        .tryon-summary{background:#fff;border:1px solid var(--border);border-radius:14px;padding:11px 14px;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:14px;min-height:0;box-shadow:0 4px 14px rgba(0,0,0,.025);}
+        .tryon-summary-kicker{font-size:10px;color:var(--gold);letter-spacing:.25em;text-transform:uppercase;margin-bottom:3px;font-weight:700;}
+        .tryon-summary-title{font-size:24px;font-weight:400;line-height:1.08;margin-bottom:2px;color:var(--cream);}
+        .tryon-summary-desc{font-size:12px;color:var(--muted);}
+        .tryon-summary-side{display:flex;align-items:center;gap:14px;justify-content:flex-end;flex-wrap:wrap;}
+        .tryon-price{font-size:22px;color:var(--gold);font-weight:800;white-space:nowrap;}
+        .tryon-control-grid{min-height:0;display:grid;grid-template-columns:minmax(360px,.95fr) minmax(380px,1.05fr);gap:12px;overflow:hidden;}
+        .control-card{min-height:0;overflow:hidden;background:#fff;border:1px solid var(--border);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:10px;box-shadow:0 4px 14px rgba(0,0,0,.025);}
+        .control-card.compact{gap:8px;}
+        .control-section{flex-shrink:0;min-width:0;}
+        .ring-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;}
+        .ring-style-btn{background:rgba(26,22,18,0.025);border:1.5px solid rgba(180,155,100,0.18);border-radius:10px;padding:6px 3px 5px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;transition:all .18s;min-width:0;}
+        .ring-style-btn.active{background:rgba(201,168,50,0.12);border-color:rgba(201,168,50,0.65);}
+        .ring-grid-thumb{width:54px;height:30px;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+        .ring-grid-label{font-size:9px;color:var(--muted);text-align:center;line-height:1.2;font-weight:500;}
+        .ring-style-btn.active .ring-grid-label{color:var(--gold);font-weight:700;}
+        .option-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px 12px;align-items:start;}
+        .option-span-2{grid-column:1 / -1;}
+        .metal-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
 
         /* Multi-ring */
-        .multi-check-wrap{display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none;}
+        .multi-check-wrap{display:flex;align-items:center;gap:7px;cursor:pointer;user-select:none;}
         .multi-check-wrap input[type=checkbox]{width:15px;height:15px;accent-color:var(--gold);cursor:pointer;}
-        .multi-check-label{font-size:13px;font-weight:600;color:var(--gold);letter-spacing:.06em;}
-        .delete-ring-btn{padding:6px 14px;border-radius:999px;border:1px solid var(--border);background:#fff;color:var(--cream);font-size:11px;font-weight:600;cursor:pointer;font-family:'DM Sans';transition:all .2s;}
+        .multi-check-label{font-size:13px;font-weight:700;color:var(--gold);letter-spacing:.05em;}
+        .delete-ring-btn{padding:7px 14px;border-radius:999px;border:1px solid var(--border);background:#fff;color:var(--cream);font-size:12px;font-weight:700;cursor:pointer;font-family:'DM Sans';transition:all .2s;}
         .delete-ring-btn:hover:not(:disabled){background:rgba(180,145,60,0.1);color:var(--gold-lt);}
         .delete-ring-btn:disabled{opacity:.3;cursor:not-allowed;}
 
         /* Ring size */
-        .size-estimate{background:rgba(180,145,60,0.07);border:1px solid rgba(180,145,60,0.25);border-radius:8px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:8px;}
-        .size-est-label{font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;}
-        .size-est-sub{font-size:10px;color:rgba(180,145,60,0.6);margin-top:2px;}
-        .size-est-value{font-size:26px;font-weight:700;color:var(--gold);font-family:'Instrument Serif',serif;flex-shrink:0;}
-        .size-manual-label{font-size:12px;color:var(--muted);margin-bottom:5px;letter-spacing:.03em;}
-        .size-manual-select{background:#fff;color:var(--cream);border:1px solid var(--border);border-radius:7px;padding:8px 11px;font-size:12px;font-family:'DM Sans';cursor:pointer;outline:none;width:100%;}
+        .size-estimate{background:rgba(180,145,60,0.07);border:1px solid rgba(180,145,60,0.25);border-radius:10px;padding:9px 13px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+        .size-est-label{font-size:11px;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;font-weight:700;}
+        .size-est-sub{font-size:10px;color:rgba(180,145,60,0.7);margin-top:2px;}
+        .size-est-value{font-size:28px;font-weight:700;color:var(--gold);font-family:'Instrument Serif',serif;flex-shrink:0;}
+        .size-manual-label{font-size:11px;color:var(--muted);margin-bottom:5px;letter-spacing:.03em;font-weight:600;}
+        .size-manual-select{background:#fff;color:var(--cream);border:1px solid var(--border);border-radius:8px;padding:8px 10px;font-size:12px;font-family:'DM Sans';cursor:pointer;outline:none;width:100%;}
         .size-manual-select:focus{border-color:var(--gold);}
 
-        /* Slider rows — full width */
-        .slider-row{display:flex;flex-direction:column;gap:5px;width:100%;}
+        /* Slider rows — full width and stacked */
+        .slider-stack{display:flex;flex-direction:column;gap:13px;width:100%;}
+        .slider-row{display:flex;flex-direction:column;gap:8px;width:100%;}
 
         /* Action buttons */
-        .action-add{width:100%;padding:14px;border-radius:10px;border:none;color:#fff;font-size:14px;letter-spacing:.08em;font-weight:800;cursor:pointer;font-family:'DM Sans';display:flex;align-items:center;justify-content:center;gap:10px;transition:all .3s;}
-        .action-save{width:100%;padding:12px;border-radius:10px;font-size:13px;letter-spacing:.08em;font-weight:600;cursor:pointer;font-family:'DM Sans';display:flex;align-items:center;justify-content:center;gap:10px;transition:all .3s;border:1.5px solid var(--border);}
+        .actions-stack{display:flex;flex-direction:column;gap:9px;width:100%;}
+        .action-add{width:100%;min-height:48px;padding:13px 16px;border-radius:12px;border:none;color:#fff;font-size:15px;letter-spacing:.07em;font-weight:900;cursor:pointer;font-family:'DM Sans';display:flex;align-items:center;justify-content:center;gap:10px;transition:all .3s;}
+        .action-save{width:100%;min-height:42px;padding:11px 16px;border-radius:12px;font-size:13px;letter-spacing:.07em;font-weight:700;cursor:pointer;font-family:'DM Sans';display:flex;align-items:center;justify-content:center;gap:10px;transition:all .3s;border:1.5px solid var(--border);}
+        .try-photo-btn{width:100%;padding:8px;border-radius:10px;border:none;background:transparent;color:var(--muted);font-size:12px;cursor:pointer;font-family:'DM Sans';letter-spacing:.05em;font-weight:600;}
 
         /* Mobile */
         @media (max-width:768px){
@@ -401,33 +422,47 @@ export default function RingTryOn() {
           .mobile-video-card{flex:0 0 100%;width:100%;height:430px;scroll-snap-align:start;scroll-snap-stop:always;}
           .camera-screen{height:calc(100svh - 80px) !important;padding:10px 14px !important;gap:10px !important;justify-content:flex-start !important;}
           .camera-shot-button{width:52px !important;height:52px !important;font-size:20px !important;}
-          /* Mobile tryon: ~38% preview, rest controls, no scroll */
+          /* Mobile tryon: still no scroll, but much more compact */
           .tryon-layout{grid-template-columns:38% 1fr !important;height:calc(100svh - 80px) !important;overflow:hidden !important;gap:0 !important;}
           .tryon-left{background:#f5f3f0 !important;}
-          .tryon-right{border-left:1px solid var(--border) !important;padding:8px 10px 8px !important;gap:6px !important;background:var(--bg2) !important;overflow:hidden !important;}
-          .tryon-right .sec-label{font-size:8px !important;letter-spacing:.12em !important;margin-bottom:4px !important;}
-          .tryon-right .sec-label span{font-size:10px !important;}
-          .tryon-right .chip{font-size:9px !important;padding:4px 8px !important;}
-          .tryon-right .chip-group{gap:4px !important;}
-          .tryon-right .swatch-btn{width:20px !important;height:20px !important;}
-          .tryon-right .ring-grid{gap:3px !important;}
-          .tryon-right .ring-grid button{padding:3px 2px !important;border-radius:5px !important;}
-          .tryon-right .ring-grid-thumb{width:28px !important;height:18px !important;}
-          .tryon-right .ring-grid-label{font-size:6.5px !important;}
+          .tryon-right{border-left:1px solid var(--border) !important;padding:6px 7px !important;gap:5px !important;background:var(--bg2) !important;overflow:hidden !important;}
+          .tryon-summary{padding:6px 7px !important;border-radius:8px !important;grid-template-columns:1fr !important;gap:3px !important;}
+          .tryon-summary-kicker{font-size:7px !important;letter-spacing:.16em !important;margin-bottom:1px !important;}
+          .tryon-summary-title{font-size:12px !important;line-height:1.05 !important;margin-bottom:0 !important;}
+          .tryon-summary-desc{font-size:8px !important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+          .tryon-summary-side{gap:5px !important;justify-content:space-between !important;}
+          .tryon-price{font-size:12px !important;}
+          .tryon-control-grid{grid-template-columns:1fr 1fr !important;gap:5px !important;}
+          .control-card{padding:6px !important;gap:5px !important;border-radius:8px !important;}
+          .option-grid{grid-template-columns:1fr !important;gap:5px !important;}
+          .option-span-2{grid-column:auto !important;}
+          .tryon-right .sec-label{font-size:7px !important;letter-spacing:.1em !important;margin-bottom:3px !important;}
+          .tryon-right .sec-label span{font-size:8px !important;}
+          .tryon-right .chip{font-size:8px !important;padding:3px 5px !important;border-radius:4px !important;}
+          .tryon-right .chip-group{gap:3px !important;}
+          .tryon-right .swatch-btn{width:18px !important;height:18px !important;}
+          .metal-row{gap:7px !important;}
+          .tryon-right .ring-grid{grid-template-columns:repeat(2,1fr) !important;gap:3px !important;}
+          .tryon-right .ring-style-btn{padding:3px 2px !important;border-radius:5px !important;gap:2px !important;}
+          .tryon-right .ring-grid-thumb{width:28px !important;height:17px !important;}
+          .tryon-right .ring-grid-label{font-size:6px !important;}
+          .tryon-right .slider-stack{gap:5px !important;}
           .tryon-right .slider-row{gap:3px !important;}
-          .tryon-right .size-estimate{padding:6px 8px !important;}
-          .tryon-right .size-est-label{font-size:9px !important;}
-          .tryon-right .size-est-sub{font-size:8px !important;}
-          .tryon-right .size-est-value{font-size:16px !important;}
-          .tryon-right .size-manual-label{font-size:9px !important;margin-bottom:3px !important;}
-          .tryon-right .size-manual-select{font-size:10px !important;padding:5px 7px !important;}
-          .tryon-right .multi-check-label{font-size:10px !important;}
-          .tryon-right .delete-ring-btn{font-size:9px !important;padding:4px 9px !important;}
-          .tryon-right .action-add{padding:9px 4px !important;font-size:10px !important;border-radius:7px !important;gap:5px !important;}
-          .tryon-right .action-save{padding:8px 4px !important;font-size:10px !important;border-radius:7px !important;gap:5px !important;}
-          .tryon-right .serif{font-size:12px !important;line-height:1.1 !important;}
+          .tryon-right .size-estimate{padding:5px 6px !important;border-radius:6px !important;}
+          .tryon-right .size-est-label{font-size:7px !important;}
+          .tryon-right .size-est-sub{display:none !important;}
+          .tryon-right .size-est-value{font-size:14px !important;}
+          .tryon-right .size-manual-label{font-size:7px !important;margin-bottom:2px !important;}
+          .tryon-right .size-manual-select{font-size:8px !important;padding:4px 5px !important;border-radius:5px !important;}
+          .tryon-right .multi-check-label{font-size:8px !important;}
+          .tryon-right .multi-check-wrap input[type=checkbox]{width:10px !important;height:10px !important;}
+          .tryon-right .delete-ring-btn{font-size:7px !important;padding:3px 6px !important;}
+          .tryon-right .actions-stack{gap:5px !important;}
+          .tryon-right .action-add{min-height:30px !important;padding:6px 4px !important;font-size:8px !important;border-radius:6px !important;gap:4px !important;}
+          .tryon-right .action-save{min-height:28px !important;padding:5px 4px !important;font-size:8px !important;border-radius:6px !important;gap:4px !important;}
+          .tryon-right .try-photo-btn{font-size:7px !important;padding:3px !important;}
           input[type=range]{height:2px !important;}
-          input[type=range]::-webkit-slider-thumb{width:14px !important;height:14px !important;}
+          input[type=range]::-webkit-slider-thumb{width:12px !important;height:12px !important;}
         }
         @media (min-width:769px){.mobile-only{display:none !important;}}
         @media (min-width:769px) and (max-height:800px){
@@ -608,143 +643,150 @@ export default function RingTryOn() {
                 )}
               </div>
 
-              {/* RIGHT: controls — wider, scrollable */}
+              {/* RIGHT: controls — compact, full-page, no scroll */}
               <div className="tryon-right">
 
-                {/* Header */}
-                <div style={{flexShrink:0}}>
-                  <div style={{fontSize:10,color:'var(--gold)',letterSpacing:'.25em',textTransform:'uppercase',marginBottom:3}}>Selected Ring</div>
-                  <h2 className="serif" style={{fontSize:19,fontWeight:400,lineHeight:1.15,marginBottom:2,color:'var(--cream)'}}>{selectedRing.name}</h2>
-                  <div style={{fontSize:11,color:'var(--muted)'}}>{selectedRing.description}</div>
-                  <div style={{fontSize:17,color:'var(--gold)',fontWeight:600,marginTop:4}}>${selectedRing.price.toLocaleString()}</div>
+                {/* Header stays short so the full configuration fits underneath */}
+                <div className="tryon-summary">
+                  <div style={{minWidth:0}}>
+                    <div className="tryon-summary-kicker">Selected Ring</div>
+                    <h2 className="serif tryon-summary-title">{selectedRing.name}</h2>
+                    <div className="tryon-summary-desc">{selectedRing.description}</div>
+                  </div>
+
+                  <div className="tryon-summary-side">
+                    <div className="tryon-price">${selectedRing.price.toLocaleString()}</div>
+                    <label className="multi-check-wrap">
+                      <input type="checkbox" checked={multiMode} onChange={e=>{setMultiMode(e.target.checked);if(!e.target.checked){setPlacedRings([]);setActivePlacedId(null)}}}/>
+                      <span className="multi-check-label">Multi-Ring Mode</span>
+                    </label>
+                    {multiMode && <button type="button" className="delete-ring-btn" onClick={deleteLastRing} disabled={placedRings.length===0}>Delete Ring</button>}
+                  </div>
                 </div>
 
-                <div className="divider"/>
+                <div className="tryon-control-grid">
+                  {/* LEFT CONTROL CARD */}
+                  <div className="control-card">
+                    {/* Ring style grid */}
+                    <div className="control-section">
+                      <div className="sec-label">Ring Style</div>
+                      <div className="ring-grid">
+                        {RING_CATALOG.map(r => (
+                          <button key={r.id} onClick={()=>selectRing(r.id)} className={`ring-style-btn ${selectedRingId===r.id?'active':''}`}>
+                            <div className="ring-grid-thumb">
+                              <img src={r.colors[0].image} alt={r.name} style={{width:r.rotation===90?'52%':'100%',height:'100%',objectFit:'contain',filter:'drop-shadow(0 2px 5px rgba(0,0,0,.5))',transform:`rotate(${r.rotation??0}deg)`}}/>
+                            </div>
+                            <div className="ring-grid-label">
+                              {r.name.split(' ').slice(0,2).join(' ')}
+                            </div>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
 
-                {/* Multi-ring toggle */}
-                <div style={{display:'flex',alignItems:'center',gap:10,flexWrap:'wrap',flexShrink:0}}>
-                  <label className="multi-check-wrap">
-                    <input type="checkbox" checked={multiMode} onChange={e=>{setMultiMode(e.target.checked);if(!e.target.checked){setPlacedRings([]);setActivePlacedId(null)}}}/>
-                    <span className="multi-check-label">Multi-Ring Mode</span>
-                  </label>
-                  {multiMode && <button type="button" className="delete-ring-btn" onClick={deleteLastRing} disabled={placedRings.length===0}>Delete Ring</button>}
-                </div>
+                    <div className="divider"/>
 
-                {/* Ring style grid */}
-                <div style={{flexShrink:0}}>
-                  <div className="sec-label">Ring Style</div>
-                  <div className="ring-grid" style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:6}}>
-                    {RING_CATALOG.map(r => (
-                      <button key={r.id} onClick={()=>selectRing(r.id)} style={{background:selectedRingId===r.id?'rgba(201,168,50,0.12)':'rgba(255,255,255,0.03)',border:selectedRingId===r.id?'1.5px solid rgba(201,168,50,0.6)':'1.5px solid rgba(255,255,255,0.08)',borderRadius:9,padding:'5px 3px 4px',cursor:'pointer',display:'flex',flexDirection:'column',alignItems:'center',gap:4,transition:'all 0.18s'}}>
-                        <div className="ring-grid-thumb" style={{width:46,height:28,display:'flex',alignItems:'center',justifyContent:'center',overflow:'hidden'}}>
-                          <img src={r.colors[0].image} alt={r.name} style={{width:r.rotation===90?'52%':'100%',height:'100%',objectFit:'contain',filter:'drop-shadow(0 2px 5px rgba(0,0,0,.5))',transform:`rotate(${r.rotation??0}deg)`}}/>
+                    {/* Metal */}
+                    <div className="control-section">
+                      <div className="sec-label">Metal <span>{selectedColor.label}</span></div>
+                      <div className="metal-row">
+                        {selectedRing.colors.map(c => (
+                          <button key={c.id} onClick={()=>{setSelectedColorId(c.id);if(multiMode&&activePlacedId)setPlacedRings(prev=>prev.map(p=>p.id===activePlacedId?{...p,colorId:c.id}:p))}}
+                            className={`swatch-btn ${selectedColorId===c.id?'active':''}`} style={{background:c.swatch}} title={c.label}/>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="divider"/>
+
+                    {/* Pukka Berlin options, arranged horizontally to avoid vertical scrolling */}
+                    <div className="option-grid">
+                      <div className="control-section option-span-2">
+                        <div className="sec-label">Stone Size</div>
+                        <div className="chip-group">
+                          {STONE_SIZES.map(s => <button key={s} onClick={()=>setStoneSize(s)} className={`chip ${stoneSize===s?'active':''}`}>{s}</button>)}
                         </div>
-                        <div className="ring-grid-label" style={{fontSize:8,color:selectedRingId===r.id?'var(--gold)':'var(--muted)',textAlign:'center',lineHeight:1.25,fontWeight:selectedRingId===r.id?600:400}}>
-                          {r.name.split(' ').slice(0,2).join(' ')}
+                      </div>
+
+                      <div className="control-section">
+                        <div className="sec-label">Fineness</div>
+                        <div className="chip-group">
+                          {FINENESS.map(f => <button key={f} onClick={()=>setFineness(f)} className={`chip ${fineness===f?'active':''}`}>{f}</button>)}
                         </div>
+                      </div>
+
+                      <div className="control-section">
+                        <div className="sec-label">Customization</div>
+                        <div className="chip-group">
+                          {CUSTOMIZATIONS.map(c => <button key={c} onClick={()=>setCustomization(c)} className={`chip ${customization===c?'active':''}`}>{c}</button>)}
+                        </div>
+                      </div>
+
+                      <div className="control-section option-span-2">
+                        <div className="sec-label">Color Stone / Pearl / Brilliant</div>
+                        <div className="chip-group">
+                          {COLOR_STONES.map(c => <button key={c} onClick={()=>setColorStone(c)} className={`chip ${colorStone===c?'active':''}`}>{c}</button>)}
+                        </div>
+                      </div>
+
+                      <div className="control-section option-span-2">
+                        <div className="sec-label">Brilliant Quality</div>
+                        <div className="chip-group">
+                          {BRILLIANTS.map(b => <button key={b} onClick={()=>setBrilliant(b)} className={`chip ${brilliant===b?'active':''}`}>{b}</button>)}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* RIGHT CONTROL CARD */}
+                  <div className="control-card compact">
+                    {/* Scale + Rotate — each has its own full-width row */}
+                    <div className="slider-stack">
+                      <div className="slider-row">
+                        <div className="sec-label">Scale the Ring <span>{Math.round(multiMode&&activePlacedRing?activePlacedRing.size:ringSize)}px</span></div>
+                        <input type="range" min={20} max={400} value={multiMode&&activePlacedRing?activePlacedRing.size:ringSize}
+                          onChange={e=>{if(multiMode&&activePlacedId)setPlacedRings(prev=>prev.map(p=>p.id===activePlacedId?{...p,size:+e.target.value}:p));else setRingSize(+e.target.value)}}/>
+                      </div>
+                      <div className="slider-row">
+                        <div className="sec-label">Rotate the Ring <span>{Math.round(multiMode&&activePlacedRing?activePlacedRing.rotation:ringRotation)}°</span></div>
+                        <input type="range" min={-180} max={180} value={multiMode&&activePlacedRing?activePlacedRing.rotation:ringRotation}
+                          onChange={e=>{if(multiMode&&activePlacedId)setPlacedRings(prev=>prev.map(p=>p.id===activePlacedId?{...p,rotation:+e.target.value}:p));else setRingRotation(+e.target.value)}}/>
+                      </div>
+                    </div>
+
+                    <div className="divider"/>
+
+                    {/* Ring Size Estimator */}
+                    <div className="control-section">
+                      <div className="sec-label">Ring Size</div>
+                      <div className="size-estimate" style={{marginBottom:8}}>
+                        <div>
+                          <div className="size-est-label">Your approx. ring size</div>
+                          <div className="size-est-sub">Based on placement and scale</div>
+                        </div>
+                        <div className="size-est-value">{approxSize}</div>
+                      </div>
+                      <div className="size-manual-label">or choose ring size manually:</div>
+                      <select className="size-manual-select" value={manualRingSize} onChange={e=>setManualRingSize(e.target.value)}>
+                        <option value="">— select size (EU) —</option>
+                        {RING_SIZES_EU.map(s => <option key={s} value={s}>{s}</option>)}
+                      </select>
+                    </div>
+
+                    <div className="divider"/>
+
+                    {/* Action buttons */}
+                    <div className="actions-stack">
+                      <button className="action-add" onClick={addToCart} style={{background:addedToCart?'var(--gold-dk)':'linear-gradient(135deg,var(--gold-dk),var(--gold))'}}>
+                        {addedToCart?'✓ Added to Cart!':(<><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Add to Cart · ${selectedRing.price.toLocaleString()}</>)}
                       </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Metal */}
-                <div style={{flexShrink:0}}>
-                  <div className="sec-label">Metal <span>{selectedColor.label}</span></div>
-                  <div style={{display:'flex',gap:10,flexWrap:'wrap'}}>
-                    {selectedRing.colors.map(c => (
-                      <button key={c.id} onClick={()=>{setSelectedColorId(c.id);if(multiMode&&activePlacedId)setPlacedRings(prev=>prev.map(p=>p.id===activePlacedId?{...p,colorId:c.id}:p))}}
-                        className={`swatch-btn ${selectedColorId===c.id?'active':''}`} style={{background:c.swatch}} title={c.label}/>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="divider"/>
-
-                {/* ── Pukka Berlin Options ── */}
-                <div style={{flexShrink:0}}>
-                  <div className="sec-label" style={{marginBottom:10}}>Stone Size</div>
-                  <div className="chip-group">
-                    {STONE_SIZES.map(s => <button key={s} onClick={()=>setStoneSize(s)} className={`chip ${stoneSize===s?'active':''}`}>{s}</button>)}
-                  </div>
-                </div>
-
-                <div style={{flexShrink:0}}>
-                  <div className="sec-label" style={{marginBottom:10}}>Fineness</div>
-                  <div className="chip-group">
-                    {FINENESS.map(f => <button key={f} onClick={()=>setFineness(f)} className={`chip ${fineness===f?'active':''}`}>{f}</button>)}
-                  </div>
-                </div>
-
-                <div style={{flexShrink:0}}>
-                  <div className="sec-label" style={{marginBottom:10}}>Color Stone / Pearl / Brilliant</div>
-                  <div className="chip-group">
-                    {COLOR_STONES.map(c => <button key={c} onClick={()=>setColorStone(c)} className={`chip ${colorStone===c?'active':''}`}>{c}</button>)}
-                  </div>
-                </div>
-
-                <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12,flexShrink:0}}>
-                  <div>
-                    <div className="sec-label" style={{marginBottom:10}}>Customization</div>
-                    <div className="chip-group">
-                      {CUSTOMIZATIONS.map(c => <button key={c} onClick={()=>setCustomization(c)} className={`chip ${customization===c?'active':''}`}>{c}</button>)}
-                    </div>
-                  </div>
-                  <div>
-                    <div className="sec-label" style={{marginBottom:10}}>Brilliant Quality</div>
-                    <div className="chip-group">
-                      {BRILLIANTS.map(b => <button key={b} onClick={()=>setBrilliant(b)} className={`chip ${brilliant===b?'active':''}`}>{b}</button>)}
+                      <button className="action-save" onClick={savePhoto} style={{background:photoSaved?'rgba(180,145,60,0.08)':'#fff',color:photoSaved?'var(--gold)':'var(--cream)'}}>
+                        {photoSaved?'✓ Photo Saved!':(<><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>Save Photo</>)}
+                      </button>
+                      <button className="try-photo-btn" onClick={()=>{stopCamera();setPhase('intro');setPhoto(null);setCroppedPhoto(null)}}>← Try a different photo</button>
                     </div>
                   </div>
                 </div>
-
-                <div className="divider"/>
-
-                {/* Scale + Rotate — each on its own full-width row */}
-                <div style={{display:'flex',flexDirection:'column',gap:12,flexShrink:0}}>
-                  <div className="slider-row">
-                    <div className="sec-label">Scale the Ring <span>{Math.round(multiMode&&activePlacedRing?activePlacedRing.size:ringSize)}px</span></div>
-                    <input type="range" min={20} max={400} value={multiMode&&activePlacedRing?activePlacedRing.size:ringSize}
-                      onChange={e=>{if(multiMode&&activePlacedId)setPlacedRings(prev=>prev.map(p=>p.id===activePlacedId?{...p,size:+e.target.value}:p));else setRingSize(+e.target.value)}}/>
-                  </div>
-                  <div className="slider-row">
-                    <div className="sec-label">Rotate the Ring <span>{Math.round(multiMode&&activePlacedRing?activePlacedRing.rotation:ringRotation)}°</span></div>
-                    <input type="range" min={-180} max={180} value={multiMode&&activePlacedRing?activePlacedRing.rotation:ringRotation}
-                      onChange={e=>{if(multiMode&&activePlacedId)setPlacedRings(prev=>prev.map(p=>p.id===activePlacedId?{...p,rotation:+e.target.value}:p));else setRingRotation(+e.target.value)}}/>
-                  </div>
-                </div>
-
-                <div className="divider"/>
-
-                {/* Ring Size Estimator */}
-                <div style={{flexShrink:0}}>
-                  <div className="sec-label" style={{marginBottom:8}}>Ring Size</div>
-                  <div className="size-estimate" style={{marginBottom:10}}>
-                    <div>
-                      <div className="size-est-label">Your approx. ring size</div>
-                      <div className="size-est-sub">Based on how you've placed & scaled the ring</div>
-                    </div>
-                    <div className="size-est-value">{approxSize}</div>
-                  </div>
-                  <div className="size-manual-label">or choose ring size manually:</div>
-                  <select className="size-manual-select" value={manualRingSize} onChange={e=>setManualRingSize(e.target.value)}>
-                    <option value="">— select size (EU) —</option>
-                    {RING_SIZES_EU.map(s => <option key={s} value={s}>{s}</option>)}
-                  </select>
-                </div>
-
-                <div className="divider"/>
-
-                {/* Action buttons */}
-                <div style={{display:'flex',flexDirection:'column',gap:9,flexShrink:0}}>
-                  <button className="action-add" onClick={addToCart} style={{background:addedToCart?'var(--gold-dk)':'linear-gradient(135deg,var(--gold-dk),var(--gold))'}}>
-                    {addedToCart?'✓ Added to Cart!':(<><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Add to Cart · ${selectedRing.price.toLocaleString()}</>)}
-                  </button>
-                  <button className="action-save" onClick={savePhoto} style={{background:photoSaved?'rgba(180,145,60,0.08)':'#fff',color:photoSaved?'var(--gold)':'var(--cream)'}}>
-                    {photoSaved?'✓ Photo Saved!':(<><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>Save Photo</>)}
-                  </button>
-                  <button onClick={()=>{stopCamera();setPhase('intro');setPhoto(null);setCroppedPhoto(null)}} style={{width:'100%',padding:'8px',borderRadius:10,border:'none',background:'transparent',color:'var(--muted)',fontSize:11,cursor:'pointer',fontFamily:'DM Sans',letterSpacing:'.05em'}}>← Try a different photo</button>
-                </div>
-                <div style={{height:8}}/>
               </div>
             </div>
           </div>
